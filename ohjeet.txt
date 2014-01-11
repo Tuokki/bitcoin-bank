@@ -1,0 +1,25 @@
+Asennettava:
+
+- Node.js
+- Heroku toolbelt
+- Git
+
+Teknologiat:
+- MEAN (Mongo, Express, Angular, Node)
+- Heroku (ajoymp‰ristˆ)
+- Git/GitHub versionhallinta
+
+Muistettavaa:
+- shh-keygen vaatii gitin bin-hakemiston asennuksen windows pathiin, muuten ei toimi
+
+Komentoja:
+- Lis‰‰ tiedostot git:n valvovan silm‰n alle "git add ."
+- Git tilanne "git status"
+- Lis‰‰ tiedostot gitin paikalliseen versionhallintaan "git commit -m "commit viesti"" 
+- Siirr‰ tiedostot herokuun ja k‰ynnist‰: "git push heroku master"
+
+Lis‰‰ komentoja:
+- Perusta gitin paikallinen repo "git init" kansiossa jonne haluat perustaa repon.
+- Lis‰‰ gitHub verkossa oleva repo "git remote add origin https://github.com/XXX/project.git"
+- Siirr‰ remoteen "git push -u origin master"
+- Hae remotesta "?"
