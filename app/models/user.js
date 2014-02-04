@@ -19,6 +19,7 @@ var UserSchema = new Schema({
         type: String,
         unique: true
     },
+    balance: Number,
     hashed_password: String,
     provider: String,
     salt: String,

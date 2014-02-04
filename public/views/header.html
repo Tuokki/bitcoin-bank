@@ -1,14 +1,13 @@
 <div class="navbar-inner" data-ng-controller="HeaderController">
     <ul class="nav">
-        <li>
-            <a class="brand" href="/">Bitcoin World - Make your coins work for you</a>
+        <li class="remove-not-vital">
+            <a class="brand" href="/">Bitcoin Bank <span class="remove-mobile">- Get interest on your bitcoin savings</span></a>
         </li>
-        <!--
-        Piilotetaan artikkeleiden lisäys
+    <!--
         <li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
             <a href="#!/{{item.link}}">{{item.title}}</a>
         </li>
-        -->
+    -->
     </ul>
     <ul class="nav pull-right" data-ng-hide="global.authenticated">
         <li>
@@ -20,8 +19,8 @@
         </li>
     </ul>
     <ul class="nav pull-right" data-ng-show="global.authenticated">
-        <li>
-            <a>Balance: 14.23 BTC</a>
+        <li class="balance">
+            <a>Balance: {{global.user.balance}} mBTC</a>
         </li>
         <li class="divider-vertical"></li>
         <li class="dropdown">
@@ -30,7 +29,7 @@
 			</a>
             <ul class="dropdown-menu">
                 <li>
-                    <a href="#">Settings</a>
+                    <a href="#!/deposit">Deposit</a>
                     <a href="/signout">Signout</a>
                 </li>
             </ul>

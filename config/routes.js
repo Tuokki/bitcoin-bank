@@ -72,6 +72,16 @@ module.exports = function(app, passport, auth) {
     //Finish with setting up the articleId param
     app.param('articleId', articles.article);
 
+    //Deposit route
+    var deposit = require('../app/controllers/deposit');
+    app.get('/deposit', deposit.render);
+    //Generate deposit address
+    app.get('/generate', deposit.createRecieveAddress);
+
+    app.get('/subapp', function (req, res) {
+        res.send('You are on the /sub/subapp page.');
+    });
+
     //Home route
     var index = require('../app/controllers/index');
     app.get('/', index.render);

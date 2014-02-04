@@ -12,14 +12,15 @@ module.exports = function(grunt) {
                 },
             },
             js: {
-                files: ['gruntfile.js', 'server.js', 'app/**/*.js', 'public/js/**', 'test/**/*.js'],
-                tasks: ['jshint'],
+                files: ['gruntfile.js', 'server.js', 'app/**/*.js', 'public/js/**'],
+                tasks: ['jshint', 'notify:javascript'],
                 options: {
                     livereload: true,
                 },
             },
             html: {
                 files: ['public/views/**'],
+                tasks: ['notify:html'],
                 options: {
                     livereload: true,
                 },
@@ -33,9 +34,9 @@ module.exports = function(grunt) {
         },
         jshint: {
             all: {
-                src: ['gruntfile.js', 'server.js', 'app/**/*.js', 'public/js/**', 'test/**/*.js'],
+                src: ['gruntfile.js', 'server.js', 'app/**/*.js', 'public/js/**'],
                 options: {
-                    jshintrc: true
+                    jshintrc: true,
                 }
             }
         },
@@ -77,8 +78,47 @@ module.exports = function(grunt) {
             unit: {
                 configFile: 'test/karma/karma.conf.js'
             }
+        },
+        notify: {
+            watch: {
+                options: {
+                    title: 'Task Complete',  // optional
+                    message: 'SASS and Uglify finished running', //required
+                }
+            },
+            server: {
+                options: {
+                    message: 'Server is ready!'
+                }
+            },
+            javascript: {
+                options: {
+                    title: 'Otsikko',
+                    message: 'Javascript tiedostoja muuttui'
+                }
+            },
+            html: {
+                options: {
+                    title: 'Otsikko',
+                    message: 'HTML tiedostoja muuttui'
+                }
+            }
+        },
+        notify_hooks: {
+            options: {
+                enabled: true,
+                max_jshint_notifications: 3,
+                title: 'Bitcoin Bank'
+            }
         }
     });
+
+    // Load the tasks
+    grunt.loadNpmTasks('grunt-notify');
+
+    // This is required if you use any options.
+    grunt.task.run('notify_hooks');
+    //grunt.task.run('notify:javascript');
 
     //Load NPM tasks 
     grunt.loadNpmTasks('grunt-contrib-watch');

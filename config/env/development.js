@@ -1,12 +1,9 @@
 'use strict';
 
-// mongodb://localhost:27017
-// mongodb://tuokki:samout@dharma.mongohq.com:10038/app21156008
-
 module.exports = {
     db: "mongodb://tuokki:samout@dharma.mongohq.com:10038/app21156008",
     app: {
-        name: "MEAN - A Modern Stack - Development"
+        name: "Bitcoin bank"
     },
     facebook: {
         clientID: "APP_ID",
