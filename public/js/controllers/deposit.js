@@ -1,7 +1,18 @@
 'use strict';
 
-angular.module('mean.system').controller('DepositController', ['$scope', 'Global', function ($scope, Global) {
+angular.module('mean.system').controller('DepositController', ['$scope', '$http', 'Global', function ($scope, $http, Global) {
     $scope.global = Global;
 
-    console.log('testsdfsdfsd');
+	$http.get('/generate')
+		.success(function (data){
+
+		$scope.paymentAddress = data;
+	});
+
+	$scope.loadData = function () {
+		$http.get('/generate').success(function(data) {
+			$scope.paymentAddress = data;
+		});
+	};
+
 }]);

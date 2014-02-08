@@ -75,6 +75,7 @@ module.exports = function(app, passport, auth) {
     //Deposit route
     var deposit = require('../app/controllers/deposit');
     app.get('/deposit', deposit.render);
+    
     //Generate deposit address
     app.get('/generate', deposit.createRecieveAddress);
 

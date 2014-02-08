@@ -19,15 +19,28 @@ var https = require('https');
 exports.createRecieveAddress = function(req, response) {
 
 		var addr = '1DYTi73EeFK1yr1U8khfStwSHSMQtBPAfC';
-		var url = 'http://www.google.com';
+		var url = 'http://bitcoinworld.herokuapp.com/username/secret';
 
-		https.get('https://blockchain.info/api/receive?method=create&address='+addr+'&callback='+url, function(res) {
+		// options for GET
+		var optionsget = {
+			host : 'blockchain.info',
+			port : 443,
+			path : '/api/receive?method=create&address='+addr+'&callback='+url,
+			method : 'GET'
+		};
+
+		var reqGet = https.get(optionsget, function(res) {
 
 			res.on('data', function(d) {
-				response.json(JSON.stringify(d));
+				var obj = JSON.parse(d);
+				response.end(obj.input_address);
 			});
 
-		}).on('error', function(e) {
+		});
+
+		reqGet.end();
+
+		reqGet.on('error', function(e) {
 			console.error(e);
 		});
 	
