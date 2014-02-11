@@ -1,6 +1,8 @@
 'use strict';
 
 var https = require('https');
+var mongoose = require('mongoose'),
+    User = mongoose.model('User');
 
 exports.createRecieveAddress = function(req, response) {
 
@@ -42,18 +44,25 @@ exports.render = function(req, res) {
 exports.handlePayment = function(req, res) {
 
 	if(req.params.secret === 'secret' && req.param('value') !== undefined) {
-		// console.log('callback recieved:'+req.params.username+':'+req.params.secret);
-		
-		// HAE KANNASTA
-		var user = req.user;
 
-		var value_in_satoshi = req.param('value');
-		var value_in_btc = value_in_satoshi / 100000000;
-		var value_in_m_btc = value_in_btc * 1000;
+		User.findOne({ username: req.params.username }, function(err, user) {
+			if (err) {
+				return console.error(err);
+			}else{
+				var value_in_satoshi = req.param('value');
+				var value_in_btc = value_in_satoshi / 100000000;
+				var value_in_m_btc = value_in_btc * 1000;
 
-		var balance = user.balance + value_in_m_btc;
-		user.balance = balance;
-		user.save();
+				if(user !== null){
+					var balance = user.balance + value_in_m_btc;
+					user.balance = balance;
+					user.save();
+				}else{
+					console.log('Could not find user: '+req.params.username);
+				}
+			}
+		});
+
 	}else{
 		console.log('could not get money or secret is wrong');
 	}
