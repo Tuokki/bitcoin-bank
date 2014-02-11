@@ -72,12 +72,21 @@ module.exports = function(app, passport, auth) {
     //Finish with setting up the articleId param
     app.param('articleId', articles.article);
 
-    //Deposit route
+    /* BITCOIN FUNCTIONALITY STARTS */
+    
+    //Bitcoin handling functions
     var deposit = require('../app/controllers/deposit');
+
+    //Deposit route
     app.get('/deposit', deposit.render);
     
     //Generate deposit address
-    app.get('/generate', deposit.createRecieveAddress);
+    app.get('/generate/:username', deposit.createRecieveAddress);
+
+    //Handle payment callback from blockchain
+    app.get('/payment/:username/:secret', deposit.handlePayment);
+
+    /* BITCOIN FUNCTIONALITY ENDS */
 
     app.get('/subapp', function (req, res) {
         res.send('You are on the /sub/subapp page.');

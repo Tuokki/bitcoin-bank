@@ -2,24 +2,10 @@
 
 var https = require('https');
 
-/* 
- Tähän ilmeisesti sitten tallennetaan tietokantaan 
- lähetysosoite ja merkitään se odottavaan tilaan
-
- sitten kun callback tulee tälle maksuosoitteelle niin
- merkataan summa saapuneeksi
-
- mistä summa?
-
- 1. muodostetaan maksusosoite
- 2. jäädään odottamaan maksua -> sirkkeli
- 3. jos maksu saapuu niin näytetään teksti "maksu saapunut yms" 
-*/
-
 exports.createRecieveAddress = function(req, response) {
 
 		var addr = '1DYTi73EeFK1yr1U8khfStwSHSMQtBPAfC';
-		var url = 'http://bitcoinworld.herokuapp.com/username/secret';
+		var url = 'http://bitcoinworld.herokuapp.com/payment/'+req.params.username+'/secret';
 
 		// options for GET
 		var optionsget = {
@@ -48,10 +34,29 @@ exports.createRecieveAddress = function(req, response) {
 
 exports.render = function(req, res) {
 
-	// req.user <- tästä tietokantaan kenen maksu
-	console.log('testi');
-
     res.render('deposit', {
         user: req.user ? JSON.stringify(req.user) : 'null'
     });
+};
+
+exports.handlePayment = function(req, res) {
+
+	if(req.params.secret === 'secret' && req.param('value') !== undefined) {
+		// console.log('callback recieved:'+req.params.username+':'+req.params.secret);
+		
+		// HAE KANNASTA
+		var user = req.user;
+
+		var value_in_satoshi = req.param('value');
+		var value_in_btc = value_in_satoshi / 100000000;
+		var value_in_m_btc = value_in_btc * 1000;
+
+		var balance = user.balance + value_in_m_btc;
+		user.balance = balance;
+		user.save();
+	}else{
+		console.log('could not get money or secret is wrong');
+	}
+
+	res.end('*ok*');
 };
