@@ -17,7 +17,9 @@ exports.handleWithdraw = function(req, res) {
 
 		var fee_in_satoshi = 10000;
 		var addr = req.params.address;
-		var amount_in_satoshi = req.params.amount*100000;
+		var amount_in_satoshi = Math.round(req.params.amount*100000);
+
+		console.log(amount_in_satoshi);
 
 		// tarkista että käyttäjä olemassa ja tilillä riittävästi rahaa
 		User.findOne({ username: req.params.username }, function(err, user) {

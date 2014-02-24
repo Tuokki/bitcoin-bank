@@ -20,7 +20,7 @@
     </ul>
     <ul class="nav pull-right" data-ng-show="global.authenticated">
         <li class="balance">
-            <a>Balance: {{global.user.balance}} mBTC</a>
+            <a>Balance: {{global.user.balance | number:3}} mBTC</a>
         </li>
         <li class="divider-vertical"></li>
         <li class="dropdown">
