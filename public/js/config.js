@@ -19,6 +19,9 @@ angular.module('mean').config(['$routeProvider',
         when('/deposit', {
             templateUrl: 'views/deposit.html'
         }).
+        when('/withdraw', {
+            templateUrl: 'views/withdraw.html'
+        }).
         when('/', {
             templateUrl: 'views/index.html'
         }).

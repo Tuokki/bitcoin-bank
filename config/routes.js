@@ -76,6 +76,7 @@ module.exports = function(app, passport, auth) {
     
     //Bitcoin handling functions
     var deposit = require('../app/controllers/deposit');
+    var withdraw = require('../app/controllers/withdraw');
 
     //Deposit route
     app.get('/deposit', deposit.render);
@@ -85,6 +86,12 @@ module.exports = function(app, passport, auth) {
 
     //Handle payment callback from blockchain
     app.get('/payment/:username/:secret', deposit.handlePayment);
+
+    //Withdraw route
+    app.get('/withdraw', withdraw.render);
+
+    //Send withdraw transaction to blockchain api
+    app.get('/send/:username/:address/:amount', withdraw.handleWithdraw);
 
     /* BITCOIN FUNCTIONALITY ENDS */
 
