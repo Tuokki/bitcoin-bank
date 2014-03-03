@@ -55,7 +55,8 @@
     "grunt-nodemon": "~0.1.2",
     "grunt-contrib-watch": "~0.5.3",
     "karma-coverage": "~0.1.4",
-    "karma": "~0.10.9"
+    "karma": "~0.10.9",
+    "node-schedule": "~0.1.13"
   },
   "devDependencies": {
     "supertest": "latest",

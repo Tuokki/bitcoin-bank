@@ -61,5 +61,16 @@ console.log('Express app started on port ' + port);
 //Initializing logger
 logger.init(app, passport, mongoose);
 
+//Scheduler for vault actions
+//TODO: laita omaan tiedostoon
+var schedule = require('node-schedule');
+
+var rule = new schedule.RecurrenceRule();
+rule.hour = 12;
+
+schedule.scheduleJob(rule, function(){
+    console.log('The answer to life, the universe, and everything!');
+});
+
 //expose app
 exports = module.exports = app;
