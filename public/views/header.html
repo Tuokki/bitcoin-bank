@@ -3,11 +3,6 @@
         <li class="remove-not-vital">
             <a class="brand" href="/">Bitcoin Bank <span class="remove-mobile">- Get interest on your bitcoin savings</span></a>
         </li>
-    <!--
-        <li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
-            <a href="#!/{{item.link}}">{{item.title}}</a>
-        </li>
-    -->
     </ul>
     <ul class="nav pull-right" data-ng-hide="global.authenticated">
         <li>
@@ -19,8 +14,14 @@
         </li>
     </ul>
     <ul class="nav pull-right" data-ng-show="global.authenticated">
+        <li class="balance" ng-show="!loading">
+            <a>Balance: {{global.user.balance | number:3}} mBTC </a>
+        </li>
+        <li ng-show="loading" style="margin-top:10px; margin-right:10px">
+            <img src="img/loaders/ajax-loader-dark.gif" />
+        </li>
         <li class="balance">
-            <a>Balance: {{global.user.balance | number:3}} mBTC</a>
+            <a href="#" ng-click="refreshBalance()"><i class="icon-white icon-refresh"></i></a>
         </li>
         <li class="divider-vertical"></li>
         <li class="dropdown">

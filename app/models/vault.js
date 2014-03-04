@@ -8,26 +8,37 @@ var mongoose = require('mongoose'),
 
 
 /**
- * Article Schema
+ * Vault Schema
  */
 var VaultSchema = new Schema({
     created: {
         type: Date,
         default: Date.now
     },
+    end_date: {
+        type: Date,
+        default: Date.now
+    },
     title: {
         type: String,
-        default: '',
-        trim: true
+        default: 'Default title',
+        trim: true,
+        unique: true
     },
-    content: {
+    description: {
         type: String,
-        default: '',
+        default: 'Default description',
         trim: true
     },
-    value: {
+    vault_bitcoin_amount: {
         type: Number,
         default: 0
+    },
+    hashed_pass_phrase: {
+        type: String
+    },
+    cipher_code: {
+        type: String
     },
     user: {
         type: Schema.ObjectId,

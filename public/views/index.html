@@ -1,7 +1,9 @@
 <section data-ng-controller="IndexController" class="content">
 	<h3>Welcome to Bitcoin Bank</h3>
 
-	<!-- two times <input ng-model="num" style="width:20px"> equals {{ multiply(num) }} -->
+	<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+
+	<b>Logged users can:</b>
 
 	<div>
 		<div>

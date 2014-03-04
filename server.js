@@ -69,6 +69,11 @@ var rule = new schedule.RecurrenceRule();
 rule.hour = 12;
 
 schedule.scheduleJob(rule, function(){
+
+    // jaetaan korot
+
+    // tarkistetaan onko suljettavia holveja
+
     console.log('The answer to life, the universe, and everything!');
 });
 

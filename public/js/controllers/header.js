@@ -1,15 +1,17 @@
 'use strict';
 
-angular.module('mean.system').controller('HeaderController', ['$scope', 'Global', function ($scope, Global) {
+angular.module('mean.system').controller('HeaderController', ['$scope', '$http', 'Global', function ($scope, $http, Global) {
     $scope.global = Global;
 
-    $scope.menu = [{
-        'title': 'Articles',
-        'link': 'articles'
-    }, {
-        'title': 'Create New Article',
-        'link': 'articles/create'
-    }];
-    
     $scope.isCollapsed = false;
+
+    $scope.refreshBalance = function() {
+
+    	$scope.loading = true;
+
+		$http.get('/users/me').success(function(data) {
+			$scope.global.user.balance = data.balance;
+			$scope.loading = false;
+		});
+	};
 }]);
