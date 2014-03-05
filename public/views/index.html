@@ -1,49 +1,39 @@
 <section data-ng-controller="IndexController" class="content">
 	
-	<div>
-          <div class="hero-unit">
-            <h1>Welcome to Bitcoin Bank!</h1>
-            <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-            <p>This is the first Bitcoin Bank that can offer intrest for your deposits. Interest
-            comes from hacking attempts to bitcoin vaults that are created by users. 
-            Every hacking attempt costs and if the secret vault phrase is solved the robber gets the whole vault content.</p>
-            <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-            <br/>
-            <div class="row-fluid">
-            <div class="span4">
-              <h2>Adams vault</h2>
-              <p>This is my first bitcoin vault, please be gentle and don't try to rob me!</p>
-              <p><a class="btn-inverse btn" href="#">Try to rob this vault &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Super vault</h2>
-              <p>Vault with super strong cryptography, robbing this vault is impossible </p>
-              <p><a class="btn-inverse btn" href="#">Try to rob this vault &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Adams vault</h2>
-              <p>This is my first bitcoin vault, please be gentle and don't try to rob me!</p>
-              <p><a class="btn-inverse btn" href="#">Try to rob this vault &raquo;</a></p>
-            </div><!--/span-->
-          </div><!--/row-->
-            <div class="row-fluid">
-            <div class="span4">
-              <h2>Adams vault</h2>
-              <p>This is my first bitcoin vault, please be gentle and don't try to rob me!</p>
-              <p><a class="btn-inverse btn" href="#">Try to rob this vault &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Super vault</h2>
-              <p>Vault with super strong cryptography, robbing this vault is impossible </p>
-              <p><a class="btn-inverse btn" href="#">Try to rob this vault &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Adams vault</h2>
-              <p>This is my first bitcoin vault, please be gentle and don't try to rob me!</p>
-              <p><a class="btn-inverse btn" href="#">Try to rob this vault &raquo;</a></p>
-            </div><!--/span-->
-          </div><!--/row-->
-          </div>
-        </div><!--/span-->
+	<div style="padding-top:10px">
+      <div class="hero-unit">
+        <h1>Welcome to Bitcoin Bank!</h1>
+        <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+        <p>This is the first Bitcoin Bank that can offer intrest for your deposits. Interest
+        comes from hacking attempts to bitcoin vaults that are created by users. 
+        Every hacking attempt costs and if the secret vault phrase is solved the robber gets the whole vault content.</p>
+        <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+        <br/>
+        <div class="row-fluid">
+	        <div class="span4">
+	          <h2>Adams vault</h2>
+	          <p>
+	          	<img src="img/safe.png" />
+	          </p>
+	          <p>
+	          <button class="btn btn-primary dropdown-toggle" ng-click="isCollapsed = !isCollapsed">
+	          	Show details
+	          </button>
+	          <button class="btn-success btn">150mBTC</button>
+				<div collapse="!isCollapsed">
+					<div>
+						Days active: 12<br/>
+	         		 	Days left: 7<br/>
+	         		 	Robbing attempts: 124<br/>
+	          			Location: Tampa Bay, USA
+					</div> 
+				</div>
+	          </p>
+	          <p>This is my first bitcoin vault, please be gentle and don't try to rob me!</p>
+	          <p><a class="btn-inverse btn" href="#">Try to rob this vault &raquo;</a></p>
+	        </div><!--/span-->
+      	</div><!--/row-->
+      </div>
+    </div><!--/span-->
 
 </section>
