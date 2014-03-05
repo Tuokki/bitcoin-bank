@@ -67,6 +67,7 @@ var schedule = require('node-schedule');
 
 var rule = new schedule.RecurrenceRule();
 rule.hour = 12;
+rule.minute = 0;
 
 schedule.scheduleJob(rule, function(){
 
@@ -74,7 +75,7 @@ schedule.scheduleJob(rule, function(){
 
     // tarkistetaan onko suljettavia holveja
 
-    console.log('The answer to life, the universe, and everything!');
+    console.log('The answer to life, the universe, and everything!' + new Date());
 });
 
 //expose app
