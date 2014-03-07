@@ -16,13 +16,13 @@
     background-color: #282828;
 }
 
-@media (max-width: 527px) {
+@media (max-width: 555px) {
     .remove-not-vital { 
         display: none; 
     }
 }
-
-@media (max-width: 850px) {
+    
+@media (max-width: 890px) {
     .remove-mobile { 
         display: none; 
     }
