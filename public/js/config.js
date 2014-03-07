@@ -10,6 +10,9 @@ angular.module('mean').config(['$routeProvider',
         when('/withdraw', {
             templateUrl: 'views/withdraw.html'
         }).
+        when('/create_vault', {
+            templateUrl: 'views/create_vault.html'
+        }).
         when('/', {
             templateUrl: 'views/index.html'
         }).

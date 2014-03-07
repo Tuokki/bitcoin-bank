@@ -1,0 +1,29 @@
+<section data-ng-controller="CreateVaultController" class="content" data-ng-show="global.authenticated">
+
+<div style="padding-top:12px">
+    <div class="hero-unit">
+		<h2>Create Vault</h2>
+
+		<div>
+			söldölsdskköfsdöflköldsf
+		</div>
+
+		<div>
+			<form>
+			
+				<input ng-model="vault_name" style="width:275px;" 
+					   placeholder="Vault name" autofocus="" type="text" required><br />
+
+				<input ng-model="amount" placeholder="Amount to store in mBTC" 
+					   style="width:120px;" type="text" required /><br/>
+
+				<button ng-click="createVault()" class="btn btn-primary">Create vault</button><br/><br/>
+
+				<span style="color: red;">{{error}}</span>
+				<span style="color: green;">{{message}}</span>
+
+			</form>
+		</div>
+	</div>
+</div>
+</section>
