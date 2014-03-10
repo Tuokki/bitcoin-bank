@@ -1,19 +1,19 @@
 <section data-ng-controller="IndexController" class="content">
-	
+
 	<div style="padding-top:12px">
-      <div class="hero-unit">
-        <h1>Welcome to <img src="img/logo1.png" style="height:75px;" /></h1><br/>
+      <div class="hero-unit" style="padding:40px">
+        <h1>Welcome to <img src="img/logo1.png" /></h1><br/>
         <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
         <p>This is the first Bitcoin Bank that can offer intrest for your deposits. Interest
         comes from hacking attempts to bitcoin vaults that are created by users. 
         Every hacking attempt costs and if the secret vault phrase is solved the robber gets the whole vault content.</p>
         <p>
         	<a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a>
-        	<a href="#!/create_vault" class="btn btn-success btn-large">Create new vault &raquo;</a>
+        	<a href="#!/create_vault" class="btn btn-success btn-large" ng-hide="!global.authenticated">Create new vault &raquo;</a>
         </p>
         <br/>
         <div class="row-fluid">
-	        <div class="span4" style="border: 1px dashed gray; padding:8px; min-width:250px">
+	        <div class="span4" style="border: 1px dashed silver; padding:8px; min-width:250px; background-color:#F3F3F3">
 	          <h2 align="center">Adams vault</h2>
 	          <p align="center">
 	          	<img src="img/safe.png" />
@@ -35,7 +35,7 @@
 	          <p>This is my first bitcoin vault, please be gentle and don't try to rob me!</p>
 	          <p align="center"><a class="btn-inverse btn" href="#">Try to rob this vault &raquo;</a></p>
 	        </div><!--/span-->
-	        <div class="span4" style="border: 1px dashed gray; padding:8px; min-width:250px">
+	        <div class="span4" style="border: 1px dashed silver; padding:8px; min-width:250px; background-color:#F3F3F3">
 	          <h2 align="center">Adams vault</h2>
 	          <p align="center">
 	          	<img src="img/safe.png" />
