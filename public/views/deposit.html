@@ -1,17 +1,13 @@
 <section data-ng-controller="DepositController" class="content" data-ng-show="global.authenticated">
-<div style="padding-top:12px">
-    <div class="hero-unit" style="padding:40px">
-		<h2>Deposit</h2>
+	<h2>Deposit</h2>
 
-		<div>
-			Deposit some bitcoins now to this address and coins will be added to your bitcoin bank account.<br/><br/>
-		</div>
-
-		<div>
-			Your payment address: <b> {{paymentAddress}} </b> <br/><br/>
-		</div>
-
-		<button ng-click="loadData()" class="btn-info btn">Generate new address</button>
+	<div>
+		Deposit some bitcoins now to this address and coins will be added to your bitcoin bank account.<br/><br/>
 	</div>
-</div>
+
+	<div>
+		Your payment address: <b> {{paymentAddress}} </b> <br/><br/>
+	</div>
+
+	<button ng-click="loadData()" class="btn-info btn">Generate new address</button>
 </section>

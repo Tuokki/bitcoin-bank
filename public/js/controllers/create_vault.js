@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('mean.system').controller('CreateVaultController', ['$scope', '$http', 'Global', function ($scope, $http, Global) {
-    $scope.global = Global;
+	$scope.global = Global;
 
+	$scope.createVault = function () {
 
-    $scope.createVault = function () {
-		if($scope.name !== undefined && $scope.amount !== undefined){
-			$scope.message = 'success';
+		if($scope.vault_name !== undefined && $scope.amount !== undefined){
+			$scope.message = 'Vault successfully created!';
 		}else{
-			$scope.error = 'error';
+			$scope.error = 'Fill all required fields';
 		}
 	};
 }]);

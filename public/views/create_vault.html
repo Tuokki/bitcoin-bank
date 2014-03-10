@@ -1,36 +1,32 @@
 <section data-ng-controller="CreateVaultController" class="content" data-ng-show="global.authenticated">
 
-<div style="padding-top:12px">
-    <div class="hero-unit" style="padding:40px">
-		<h2>Create Vault</h2>
+	<h2>Create Vault</h2>
 
-		<div>
-			By creating a bitcoin vault you can get interests for your bitcoins. Design your own security algorithm or use predefined algorithms.<br/><br/>
-		</div>
-
-		<div>
-			<form>
-			
-				<input ng-model="vault_name" style="width:275px;" 
-					   placeholder="Vault name" autofocus="" type="text" required><br />
-
-				<input ng-model="amount" placeholder="Amount to store in mBTC" 
-					   style="width:160px;" type="text" required /> mBTC<br/>
-				<textarea placeholder="Vault description"></textarea><br/>
-				<input ng-model="location"  type="text" required placeholder="Vault location" /><br/>
-
-				<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-    				<input class="span2" size="16" type="text" value="12-02-2012">
-   					<span class="add-on"><i class="icon-th"></i></span>
-    			</div><br/>
-
-				<button ng-click="createVault()" class="btn btn-primary">Create vault</button><br/><br/>
-
-				<span style="color: red;">{{error}}</span>
-				<span style="color: green;">{{message}}</span>
-
-			</form>
-		</div>
+	<div>
+		By creating a bitcoin vault you can get interests for your bitcoins. Design your own security algorithm or use predefined algorithms.<br/><br/>
 	</div>
-</div>
+
+	<div>
+		<form>
+		
+			<input ng-model="vault_name" style="width:275px;" 
+				   placeholder="Vault name" autofocus="" type="text" required><br />
+
+			<input ng-model="amount" placeholder="Amount to store in mBTC" 
+				   style="width:160px;" type="text" required /> mBTC<br/>
+			<textarea placeholder="Vault description" ng-model="description"></textarea><br/>
+			<input ng-model="location"  type="text" required placeholder="Vault location" /><br/>
+
+			<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+				<input class="span2" size="16" type="text" value="12-02-2012">
+					<span class="add-on"><i class="icon-th"></i></span>
+			</div><br/>
+
+			<button ng-click="createVault()" class="btn btn-primary">Create vault</button><br/><br/>
+
+			<span style="color: red;">{{error}}</span>
+			<span style="color: green;">{{message}}</span>
+
+		</form>
+	</div>
 </section>
