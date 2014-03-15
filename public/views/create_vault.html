@@ -1,5 +1,44 @@
 <section data-ng-controller="CreateVaultController" class="content" data-ng-show="global.authenticated">
 
+<style>
+.dropstyle {
+    border:1px solid #aaaaaa;
+    width:130px;
+    height:70px;
+    padding:2px;
+    display: table-cell;
+    vertical-align: middle;
+    text-align:center;
+}
+
+.cipher {
+    max-width: 200px;
+    word-wrap: break-word;
+    display: block;
+    padding:4px;
+    border:1px dashed silver;
+    margin:5px;
+}
+.arrow {
+    font-size:30px;
+}
+
+.sourceReview {
+    display: table-cell;
+    vertical-align: middle;
+    text-align:center;
+    width:100%;
+    height:200px;
+    color:gray;
+    font-style:italic;
+}
+
+.sourceReviewContains {
+    width:100%;
+    height:200px;
+}
+</style>
+
 	<h2>Create Vault</h2>
 
 	<div>
@@ -10,19 +49,84 @@
 		<form>
 		
 			<input ng-model="vault_name" style="width:275px;" 
-				   placeholder="Vault name" autofocus="" type="text" required><br />
+				   placeholder="Vault name" autofocus="" type="text"><br />
 
 			<input ng-model="amount" placeholder="Amount to store in mBTC" 
-				   style="width:160px;" type="text" required /> mBTC<br/>
-			<textarea placeholder="Vault description" ng-model="description"></textarea><br/>
-			<input ng-model="location"  type="text" required placeholder="Vault location" /><br/>
-
-			<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-				<input class="span2" size="16" type="text" value="12-02-2012">
-					<span class="add-on"><i class="icon-th"></i></span>
-			</div><br/>
-
-			<button ng-click="createVault()" class="btn btn-primary">Create vault</button><br/><br/>
+				   style="width:160px;" type="text" /> mBTC<br/>
+			<input type="text" class="form-control" datepicker-popup="dd.MM.yyyy" ng-model="end_date" is-open="opened" close-text="Close" style="width:100px;" placeholder="End date" 
+			min="{{minDate}}" /> Vault will be {{ dateDifference() }} days active
+			<br/>
+			<textarea style="width:270px" rows="5" placeholder="Vault description" ng-model="description"></textarea><br/>
+			<input ng-model="location"  type="text" placeholder="Vault location" /><br/>
+			<h3>Protect your vault with cipher algorithm</h3>
+			<b>Algorithms (drag these):</b><br/>
+			<span id="drag1" draggable="true" ondragstart="drag(event)" 
+					style="background-color:#F0FFF0; display: block ; float: left" class="cipher">
+			    Caesar cipher
+			</span>
+			<span id="drag2" draggable="true" ondragstart="drag(event)" 
+					style="background-color:#F0F8FF; display: block ; float: left" class="cipher">
+			    Own cipher 1
+			</span>
+			<span id="drag3" draggable="true" ondragstart="drag(event)" 
+					style="background-color:#F0F8FF; display: block ; float: left" class="cipher">
+			    Own cipher 2
+			</span>
+			<span id="drag4" draggable="true" ondragstart="drag(event)" 
+					style="background-color:#F0F8FF; display: block ; float: left" class="cipher">
+			    Own cipher 3
+			</span>
+			<br/><br/>
+			<table id="table" style="min-width:550px">
+			    <tr>
+			        <td>Text to be crypted</td>
+			        <td class="arrow">
+			            &rarr;
+			        </td>
+			        <td>
+			            <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" class="dropstyle">
+			                <i style="color:gray">Drag algorithm here</i>
+			            </div>
+			        </td>
+			        <td class="arrow">
+			            &rarr;
+			        </td>
+			        <td>
+			            <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)" class="dropstyle">
+			                <i style="color:gray">Drag algorithm here</i>
+			            </div>
+			        </td>
+			        <td class="arrow">
+			            &rarr;
+			        </td>
+			        <td>
+			            <div id="div3" ondrop="drop(event)" ondragover="allowDrop(event)" class="dropstyle">
+			                <i style="color:gray">Drag algorithm here</i>
+			            </div>
+			        </td>
+			        <td class="arrow">
+			            &rarr;
+			        </td>
+			        <td><span id="result"></span></td>
+			    </tr>
+			    <tr>
+			        <td colspan="7">
+			            <button onclick="run()" class="btn btn-success">Test run</button> 
+			        </td>
+			    </tr>
+			    <tr>
+			        <td></td>
+			        <td colspan="7">
+			            <textarea class="sourceReview" ondrop="dropSource(event)" ondragover="allowDrop(event)"
+			            id="sourceElement" onkeyup="this.setAttribute('data-value', this.value);" data-value="">Drop algorithm here to view/edit source</textarea>
+			            <br/>
+			            <button onclick="saveSource()" class="btn btn-primary">Save algorithm changes</button>
+			            <button onclick="reset()" class="btn btn-inverse">Reset</button>
+			        </td>
+			    </tr>
+			</table>
+			<br/>
+			<button ng-click="createVault()" class="btn btn-primary btn-large">Create vault</button><br/><br/>
 
 			<span style="color: red;">{{error}}</span>
 			<span style="color: green;">{{message}}</span>

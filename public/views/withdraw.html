@@ -1,37 +1,34 @@
 <section data-ng-controller="WithdrawController" class="content" data-ng-show="global.authenticated">
 
-<div style="padding-top:12px">
-    <div class="hero-unit" style="padding:40px">
-		<h2>Withdraw</h2>
+	<h2>Withdraw</h2>
 
-		<div>
-			Withdraw bitcoins from your account.
-			Maximum withdrawable amount is {{ global.user.balance - 0.1 | number:3 }} mBTC.
-			<br/><br/>
-			Please check our hot wallet balance before making withdraw, if balance will
-			not be enough for your withdraw, please notify us.<br/>
-			<a href="https://blockchain.info/address/1FWQA8rvURWgz3Pn2AjQ6gyFXaKwzNw8A5" target="_blank">
-				Hot wallet balance
-			</a>
-			<br/><br/>
-		</div>
-
-		<div>
-			<form>
-			
-				<input ng-model="address" style="width:275px;" 
-					   placeholder="Recieve address" autofocus="" type="text" required><br />
-
-				<input ng-model="amount" placeholder="Amount in mBTC" 
-					   style="width:120px;" type="text" required /> Fee of 0.1 mBTC will be added<br/>
-
-				<button ng-click="makeWithdraw()" class="btn btn-primary">Make withdraw</button><br/><br/>
-
-				<span style="color: red;">{{error}}</span>
-				<span style="color: green;">{{message}}</span>
-
-			</form>
-		</div>
+	<div>
+		Withdraw bitcoins from your account.
+		Maximum withdrawable amount is {{ global.user.balance - 0.1 | number:3 }} mBTC.
+		<br/><br/>
+		Please check our hot wallet balance before making withdraw, if balance will
+		not be enough for your withdraw, please notify us.<br/>
+		<a href="https://blockchain.info/address/1FWQA8rvURWgz3Pn2AjQ6gyFXaKwzNw8A5" target="_blank">
+			Hot wallet balance
+		</a>
+		<br/><br/>
 	</div>
-</div>
+
+	<div>
+		<form>
+		
+			<input ng-model="address" style="width:275px;" 
+				   placeholder="Recieve address" autofocus="" type="text" required><br />
+
+			<input ng-model="amount" placeholder="Amount in mBTC" 
+				   style="width:120px;" type="text" required /> Fee of 0.1 mBTC will be added<br/>
+
+			<button ng-click="makeWithdraw()" class="btn btn-primary">Make withdraw</button><br/><br/>
+
+			<span style="color: red;">{{error}}</span>
+			<span style="color: green;">{{message}}</span>
+
+		</form>
+	</div>
+		
 </section>
