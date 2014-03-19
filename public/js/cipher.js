@@ -198,8 +198,7 @@ function run() {
    
 }
 
-function reset() {
-
+function resetSource() {
     var element = document.getElementById('sourceElement');
     element.value='Drop algorithm here to view/edit source';
     element.className='sourceReview';

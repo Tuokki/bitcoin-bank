@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
+require('mongoose-function')(mongoose);
 
 /**
  * Vault Schema
@@ -37,9 +38,9 @@ var VaultSchema = new Schema({
     hashed_pass_phrase: {
         type: String
     },
-    cipher_code: {
-        type: String
-    },
+    cipher_code1: Function,
+    cipher_code2: Function,
+    cipher_code3: Function,
     user: {
         type: Schema.ObjectId,
         ref: 'User'

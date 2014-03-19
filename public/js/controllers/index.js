@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mean.system').controller('IndexController', ['$scope', 'Global', function ($scope, Global) {
+angular.module('mean.system').controller('IndexController', ['$scope','$http', 'Global', function ($scope, $http, Global) {
 	$scope.global = Global;
 
 	$scope.alerts = [
@@ -10,4 +10,12 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
 	$scope.closeAlert = function(index) {
 		$scope.alerts.splice(index, 1);
 	};
+
+	$scope.vaults = [];
+
+	$http.get('/vaults')
+		.success(function (data){
+
+		$scope.vaults = data;
+	});
 }]);

@@ -11,50 +11,31 @@
     </p>
     <br/>
     <div class="row-fluid">
-        <div class="span4" style="border: 1px dashed silver; padding:8px; min-width:250px; background-color:#F3F3F3">
-          <h2 align="center">Adams vault</h2>
+        <div class="span4" ng:repeat="vault in vaults"
+          style="border: 1px dashed silver; padding:8px; min-width:250px; background-color:#F3F3F3">
+          <h2 align="center">{{vault.title}}</h2>
           <p align="center">
-          	<img src="img/safe.png" />
+            <img src="img/safe.png" />
           </p>
           <p align="center">
-          <button class="btn btn-primary dropdown-toggle" ng-click="isCollapsed1 = !isCollapsed1">
-          	Show details
-          </button>
-          <button class="btn-success btn">150mBTC</button>
-			<div collapse="!isCollapsed1">
-				<div>
-					Days active: 12<br/>
-         		 	Days left: 7<br/>
-         		 	Robbing attempts: 124<br/>
-          			Location: Tampa Bay, USA
-				</div> 
-			</div>
+            <button class="btn btn-primary dropdown-toggle" ng-click="isCollapsed1 = !isCollapsed1">
+            	Show details
+            </button>
+            <button class="btn-success btn">{{vault.vault_bitcoin_amount}} mBTC</button>
+      			<div collapse="!isCollapsed1">
+      				<div align="center">
+                <table width="220">
+        					<tr><td>Days active:</td><td>12</td></tr>
+                  <tr><td>Days left:</td><td>7</td></tr>
+                  <tr><td>Robbing attempts:</td><td>144</td></tr>
+                  <tr><td>Location:</td><td>{{vault.location}}</td></tr>
+                </table>
+      				</div> 
+      			</div>
           </p>
-          <p>This is my first bitcoin vault, please be gentle and don't try to rob me!</p>
+          <p align="center">{{vault.description}}</p>
           <p align="center"><a class="btn-inverse btn" href="#">Try to rob this vault &raquo;</a></p>
-        </div><!--/span-->
-        <div class="span4" style="border: 1px dashed silver; padding:8px; min-width:250px; background-color:#F3F3F3">
-          <h2 align="center">Adams vault</h2>
-          <p align="center">
-          	<img src="img/safe.png" />
-          </p>
-          <p align="center">
-          <button class="btn btn-primary dropdown-toggle" ng-click="isCollapsed2 = !isCollapsed2">
-          	Show details
-          </button>
-          <button class="btn-success btn">150mBTC</button>
-			<div collapse="!isCollapsed2">
-				<div>
-					Days active: 12<br/>
-         		 	Days left: 7<br/>
-         		 	Robbing attempts: 124<br/>
-          			Location: Tampa Bay, USA
-				</div> 
-			</div>
-          </p>
-          <p>This is my first bitcoin vault, please be gentle and don't try to rob me!</p>
-          <p align="center"><a class="btn-inverse btn" href="#">Try to rob this vault &raquo;</a></p>
-        </div><!--/span-->
+        </div>
   	</div><!--/row-->
 
 </section>

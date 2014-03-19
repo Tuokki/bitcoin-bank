@@ -5,7 +5,7 @@ angular.module('mean.system').controller('WithdrawController', ['$scope', '$http
 
     // TÄSSÄ ON TIETOTURVA-AUKKO
     // koska tämä koodi on kaikkien nähtävissä
-    // lisää salasana gettiin?
+    // lisää req.user tarkistukset palvelimen päähän
     $scope.makeWithdraw = function () {
 		if($scope.address !== undefined && $scope.amount !== undefined){
 			$http.get('/send/' + Global.user.username + '/'+

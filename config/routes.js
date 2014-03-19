@@ -43,8 +43,11 @@ module.exports = function(app, passport, auth) {
 
     /* BITCOIN FUNCTIONALITY ENDS */
 
+    //Vault page and save
     var create_vault = require('../app/controllers/create_vault');
     app.get('/create_vault', create_vault.render);
+    app.post('/save_vault', create_vault.save);
+    app.get('/vaults', create_vault.get_all_vaults);
 
     app.get('/subapp', function (req, res) {
         res.send('You are on the /sub/subapp page.');
