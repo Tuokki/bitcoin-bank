@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('mean.system').controller('IndexController', ['$scope','$http', 'Global', function ($scope, $http, Global) {
+angular.module('mean.system').controller('IndexController', ['$scope','$http', 'Global',
+	function ($scope, $http, Global) {
+
 	$scope.global = Global;
 
 	$scope.alerts = [

@@ -13,19 +13,24 @@
 	</div>
 
 	<div>
-		<form>
-		
-			<input ng-model="address" style="width:275px;" 
-				   placeholder="Recieve address" autofocus="" type="text" required><br />
+		<form role="form">
+			<div class="form-group">
+				<input ng-model="address" style="width:275px;" 
+					   placeholder="Recieve address" 
+					   class="form-control" type="text" required><br />
 
-			<input ng-model="amount" placeholder="Amount in mBTC" 
-				   style="width:120px;" type="text" required /> Fee of 0.1 mBTC will be added<br/>
+				<input ng-model="amount" placeholder="Amount in mBTC" 
+					   style="width:140px;" type="text" 
+					   class="form-control" required />
+					   <br/>
+					   Fee of 0.1 mBTC will be added
+					   <br/><br/>
 
-			<button ng-click="makeWithdraw()" class="btn btn-primary">Make a withdrawal</button><br/><br/>
+				<button ng-click="makeWithdraw()" class="btn btn-primary">Make a withdrawal</button><br/><br/>
 
-			<span style="color: red;">{{error}}</span>
-			<span style="color: green;">{{message}}</span>
-
+				<span style="color: red;">{{error}}</span>
+				<span style="color: green;">{{message}}</span>
+			</div>
 		</form>
 	</div>
 		

@@ -6,9 +6,7 @@
    
     <div class="panel panel-default">
         <div class="panel-body">
-            <p>This is the first Bitcoin Bank that can offer intrest for your deposits. Interest
-                comes from hacking attempts to bitcoin vaults that are created by users.
-                Every hacking attempt costs and if the secret vault phrase is solved the robber gets the whole vault content.
+            <p>This is the first site that offers interest for your Bitcoin deposits. Interest is earned from unsuccessfull burglary attempts to your Bitcoin Vault. You can design your own vault security, and so reduce the possibility of burglary.
             </p>
             <p>
                 <a href="#" class="btn btn-primary btn-large">Learn more »</a>
@@ -26,20 +24,20 @@
                     <img src="img/safe.png" />
                   </p>
                   <p align="center">
-                    <button class="btn btn-primary dropdown-toggle" ng-click="isCollapsed1 = !isCollapsed1">
-                    	Show details
+                    <button class="btn btn-primary dropdown-toggle">
+                      Show details
                     </button>
                     <button class="btn-success btn">{{vault.vault_bitcoin_amount}} mBTC</button>
-              			<div collapse="!isCollapsed1">
-              				<div align="center">
+                    <div>
+                      <div align="center">
                         <table width="220">
-                					<tr><td>Days active:</td><td>12</td></tr>
+                          <tr><td>Days active:</td><td>12</td></tr>
                           <tr><td>Days left:</td><td>7</td></tr>
                           <tr><td>Robbing attempts:</td><td>144</td></tr>
                           <tr><td>Location:</td><td>{{vault.location}}</td></tr>
                         </table>
-              				</div> 
-              			</div>
+                      </div> 
+                    </div>
                   </p>
                   <p align="center">{{vault.description}}</p>
                   <p align="center">
@@ -48,6 +46,6 @@
                 </div>
             </div>
         </div>
-  	</div>
+    </div>
 
 </section>

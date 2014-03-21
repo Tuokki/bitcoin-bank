@@ -1,41 +1,44 @@
-<div class="navbar-inner" data-ng-controller="HeaderController">
-    <ul class="nav">
-        <li class="remove-not-vital">
-            <a class="brand" href="/">Bitcoin Stash <span class="remove-mobile">- Get interest on your bitcoin savings</span></a>
-        </li>
-    </ul>
-    <ul class="nav pull-right" data-ng-hide="global.authenticated">
-        <li>
-            <a href="signup">Signup</a>
-        </li>
-        <li class="divider-vertical"></li>
-        <li>
-            <a href="signin">Signin</a>
-        </li>
-    </ul>
-    <ul class="nav pull-right" data-ng-show="global.authenticated">
-        <li class="balance" ng-show="!loading">
-            <a>Balance: {{global.user.balance | number:3}} mBTC </a>
-        </li>
-        <li ng-show="loading" style="margin-top:10px; margin-right:10px">
-            <img src="img/loaders/ajax-loader-dark.gif" />
-        </li>
-        <li class="balance">
-            <a href="#" ng-click="refreshBalance()"><i class="icon-white icon-refresh"></i></a>
-        </li>
-        <li class="divider-vertical"></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-				{{global.user.name}} <b class="caret"></b>
-			</a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a href="#!/deposit">Deposit</a>
-                    <a href="#!/withdraw">Withdraw</a>
-                    <a href="#!/create_vault">Create vault</a>
-                    <a href="/signout">Signout</a>
-                </li>
-            </ul>
-        </li>
-    </ul>
+<div class="container" data-ng-controller="HeaderController">
+    <div class="navbar-header">
+        <a href="/" class="navbar-brand">Bitcoin Stash - Get Bitcoin interest</a>
+    </div>
+    
+    <div class="navbar-right">
+        <ul class="nav navbar-nav navbar-right" id="navbar-main" data-ng-show="global.authenticated">
+            <li class="balance" ng-show="!loading">
+                <a>Balance: {{global.user.balance | number:3}} mBTC </a>
+            </li>
+            <li ng-show="loading" style="margin-top:10px; margin-right:10px">
+                <img src="img/loaders/ajax-loader-dark.gif" />
+            </li>
+            <li class="balance">
+                <a href="#" ng-click="refreshBalance()">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                </a>
+            </li>
+            <li class="divider-vertical"></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    {{global.user.name}} <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#!/deposit">Deposit</a>
+                        <a href="#!/withdraw">Withdraw</a>
+                        <a href="#!/create_vault">Create vault</a>
+                        <a href="/signout">Signout</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" id="navbar-main" data-ng-hide="global.authenticated">
+            <li>
+                <a href="signup">Signup</a>
+            </li>
+            <li class="divider-vertical"></li>
+            <li>
+                <a href="signin">Signin</a>
+            </li>
+        </ul>
+    </div>
 </div>
