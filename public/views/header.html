@@ -1,10 +1,18 @@
 <div class="container" data-ng-controller="HeaderController">
+    
     <div class="navbar-header">
+        <button class="navbar-toggle" type="button" 
+        data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
         <a href="/" class="navbar-brand">Bitcoin Stash - Get Bitcoin interest</a>
     </div>
     
-    <div class="navbar-right">
-        <ul class="nav navbar-nav navbar-right" id="navbar-main" data-ng-show="global.authenticated">
+    <div class="collapse navbar-collapse bs-navbar-collapse" id="show" role="navigation">
+        <ul class="nav navbar-nav navbar-right" data-ng-show="global.authenticated">
             <li class="balance" ng-show="!loading">
                 <a>Balance: {{global.user.balance | number:3}} mBTC </a>
             </li>
