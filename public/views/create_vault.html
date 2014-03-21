@@ -40,6 +40,19 @@
 	color: red;
 }
 
+.input_style {
+	display: inline-block; 
+	text-align: left; 
+	margin-bottom:5px;
+	margin-top:5px;
+}
+
+.label_style {
+	display: inline-block; 
+	
+	text-align: left;
+}
+
 .sourceReviewContains {
     width:100%;
     height:200px;
@@ -49,7 +62,7 @@
 
 	<h2>Create Vault</h2>
 
-	<div style="border:1px solid silver; max-width:700px; padding:10px;">
+	<div class="panel panel-default" style="padding:20px">
 
 		<div>
 			Design and create your own vault. You can protect your vault with security algorithms. Remember, everything affects the level of security and how easy it is to rob your vault!<br/><br/>
@@ -58,8 +71,10 @@
 		<div>
 			<form name="vault_form">
 			
-				<input required ng-model="vault_name" name="vault_name" style="width:275px;" 
-					   placeholder="Vault name" type="text" ng-minlength=3 ng-maxlength=20><br/>
+				<input required ng-model="vault_name" name="vault_name" 
+						style="width:275px;"
+					   	placeholder="Vault name" type="text" ng-minlength=3 
+					   	ng-maxlength=20 class="form-control input_style"><br/>
 
 				<div class="error"
 			        ng-show="vault_form.vault_name.$dirty && vault_form.vault_name.$invalid">
@@ -74,8 +89,14 @@
 				    </small>
 			  	</div>
 
-				<input required ng-model="amount" name="amount" placeholder="Amount to store in mBTC" 
-					   style="width:160px;" type="number" /> mBTC<br/>
+				<input required ng-model="amount" name="amount" 
+					placeholder="Amount to store in mBTC" 
+				   	style="width:200px;" 
+				   	type="number" class="form-control input_style"/>
+
+				   <label class="label_style">
+				   mBTC
+				   </label>	<br/>
 
 				<div class="error" ng-show="vault_form.amount.$dirty && vault_form.amount.$invalid">
 				    <small class="error" ng-show="vault_form.amount.$error.required">
@@ -86,8 +107,10 @@
 				    </small>
 			  	</div>
 
-				<input required type="text" name="end_date" class="form-control" datepicker-popup="dd.MM.yyyy" ng-model="end_date" is-open="opened" close-text="Close" style="width:100px;" placeholder="End date" 
-				min="{{minDate}}" /> Vault will be {{ dateDifference() }} days active
+				<input required type="text" name="end_date" datepicker-popup="dd.MM.yyyy" ng-model="end_date" is-open="opened" close-text="Close" style="width:100px;" placeholder="End date"  class="form-control input_style" min="{{minDate}}" /> 
+				<label class="label_style">
+					Vault will be {{ dateDifference() }} days active
+				</label>
 				<br/>
 
 				<div class="error" ng-show="vault_form.end_date.$dirty && vault_form.end_date.$invalid">
@@ -99,9 +122,7 @@
 				    </small>
 			  	</div>
 
-				<textarea required style="width:270px" name="description" rows="5" placeholder="Vault description" ng-model="description" ng-minlength=10 ng-maxlength=200></textarea>
-				<span style="vertical-align:top">(e.g. "My mom's Bitcoins")</span>
-				<br/>
+				<textarea required style="width:270px; margin-top:5px; margin-bottom:5px;" name="description" rows="5" placeholder="Vault description" ng-model="description" ng-minlength=10 ng-maxlength=200 class="form-control"></textarea>
 
 				<div class="error" ng-show="vault_form.description.$dirty && vault_form.description.$invalid">
 				    <small class="error" ng-show="vault_form.description.$error.required">
@@ -112,7 +133,7 @@
 				    </small>
 			  	</div>
 
-				<input required ng-model="location" name="location" type="text" placeholder="Vault location" ng-minlength=5 ng-maxlength=25 /> (eg. "Toronto, Canada")<br/>
+				<input required ng-model="location" name="location" type="text" placeholder="Vault location" ng-minlength=5 ng-maxlength=25 style="width:250px" class="form-control input_style"/><br/>
 
 				<div class="error" ng-show="vault_form.location.$dirty && vault_form.location.$invalid">
 				    <small class="error" ng-show="vault_form.location.$error.required">
@@ -183,7 +204,7 @@
 				    </tr>
 				    <tr>
 				        <td colspan="8">
-				            <textarea class="sourceReview" ondrop="dropSource(event)" ondragover="allowDrop(event)"
+				            <textarea class="sourceReview" style="margin-bottom:10px" ondrop="dropSource(event)" ondragover="allowDrop(event)"
 				            id="sourceElement" onkeyup="this.setAttribute('data-value', this.value);" data-value="">Drop algorithm here to view/edit source</textarea>
 				            <br/>
 				            <button onclick="saveSource()" class="btn btn-primary">Save algorithm changes</button>

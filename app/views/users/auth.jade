@@ -4,7 +4,7 @@ block content
   .row
     .span6
       if message && message.length
-        .fade.in.alert.alert-error
+        .fade.in.alert.alert-error(style="background-color:#F9966B; margin-top:15px")
           button.close(type="button", data-dismiss="alert") &times;
           strong #{message}
       block auth

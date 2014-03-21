@@ -1,29 +1,29 @@
 extends auth
 
 block auth
-  form.signup.form-horizontal(action="/users", method="post")
+  form.signup.form-horizontal(action="/users", method="post", role="form")
     .control-group
       label.control-label(for='name') Full name
       .controls
-        input#name(type='text', name="name", placeholder='Full name', value=user.name)
+        input#name(type='text', name="name", placeholder='Full name', value=user.name, class="form-control")
 
     .control-group
       label.control-label(for='email') Email
       .controls
-        input#email(type='text', name="email", placeholder='Email', value=user.email)
+        input#email(type='text', name="email", placeholder='Email', value=user.email, class="form-control")
 
     .control-group
-      label.control-label(for='username') Username
+      label.control-label(for='username',) Username
       .controls
-        input#username(type='text', name="username", placeholder='Username', value=user.username)
+        input#username(type='text', name="username", placeholder='Username', value=user.username, class="form-control")
 
     .control-group
       label.control-label(for='password') Password
       .controls
-        input#password(type='password', name="password", placeholder='Password')
+        input#password(type='password', name="password", placeholder='Password', class="form-control")
 
     .form-actions
-      button.btn.btn-primary(type='submit') Sign up
+      button.btn.btn-primary(type='submit', style="margin-top:10px") Sign up
       &nbsp;
-      | or&nbsp;
-      a.show-login(href="/signin") login
+      span.something(style="font-size:12pt; font-weight:bold; vertical-align:middle")| or&nbsp;
+      a.show-login(href="/signin", style="font-size:12pt; font-weight:bold; vertical-align:middle") login

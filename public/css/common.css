@@ -16,6 +16,11 @@
     background-color: #282828;
 }
 
+.inverse-dropdown{
+  background-color: #222;
+  border-color: #080808;
+}
+
 @media (max-width: 555px) {
     .remove-not-vital { 
         display: none; 
