@@ -1,6 +1,6 @@
 {
-  "name": "mean",
-  "description": "Bitcoin bank",
+  "name": "Bitcoin Stash",
+  "description": "Bitcoin Stash",
   "version": "0.1.2",
   "private": false,
   "author": "Tuomas Saranen",
