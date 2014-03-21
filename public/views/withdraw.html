@@ -3,11 +3,9 @@
 	<h2>Withdraw</h2>
 
 	<div>
-		Withdraw bitcoins from your account.
-		Maximum withdrawable amount is {{ global.user.balance - 0.1 | number:3 }} mBTC.
+		The maximum amount to be withdrawed is {{ global.user.balance - 0.1 | number:3 }} mBTC.
 		<br/><br/>
-		Please check our hot wallet balance before making withdraw, if balance will
-		not be enough for your withdraw, please notify us.<br/>
+		Please check the hot wallet balance before making a withdrawal; if the balance is not sufficient for your withdrawal, please notify us by email.<br/>
 		<a href="https://blockchain.info/address/1FWQA8rvURWgz3Pn2AjQ6gyFXaKwzNw8A5" target="_blank">
 			Hot wallet balance
 		</a>
@@ -23,7 +21,7 @@
 			<input ng-model="amount" placeholder="Amount in mBTC" 
 				   style="width:120px;" type="text" required /> Fee of 0.1 mBTC will be added<br/>
 
-			<button ng-click="makeWithdraw()" class="btn btn-primary">Make withdraw</button><br/><br/>
+			<button ng-click="makeWithdraw()" class="btn btn-primary">Make a withdrawal</button><br/><br/>
 
 			<span style="color: red;">{{error}}</span>
 			<span style="color: green;">{{message}}</span>

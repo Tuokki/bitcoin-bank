@@ -52,7 +52,7 @@
 	<div style="border:1px solid silver; max-width:700px; padding:10px;">
 
 		<div>
-			By creating a bitcoin vault you can get interests for your bitcoins. Design your own security algorithm or use predefined algorithms.<br/><br/>
+			Design and create your own vault. You can protect your vault with security algorithms. Remember, everything affects the level of security and how easy it is to rob your vault!<br/><br/>
 		</div>
 
 		<div>
@@ -82,7 +82,7 @@
 				        Amount is required.
 				    </small>
 				    <small class="error" ng-show="vault_form.amount.$invalid">
-				        Amount shoud be numbers only (eg. "20.5").
+				        Amount shoud be numbers only (e.g. "20.5").
 				    </small>
 			  	</div>
 
@@ -100,7 +100,7 @@
 			  	</div>
 
 				<textarea required style="width:270px" name="description" rows="5" placeholder="Vault description" ng-model="description" ng-minlength=10 ng-maxlength=200></textarea>
-				<span style="vertical-align:top">(eg. "My moms bitcoins")</span>
+				<span style="vertical-align:top">(e.g. "My mom's Bitcoins")</span>
 				<br/>
 
 				<div class="error" ng-show="vault_form.description.$dirty && vault_form.description.$invalid">
@@ -123,8 +123,8 @@
 				    </small>
 			  	</div>
 
-				<h3>Protect your vault with cipher algorithm</h3>
-				<b>Algorithms (drag these):</b><br/>
+				<h3>Protect your vault with cipher algorithms</h3>
+				<b>Algorithms (drag and drop):</b><br/>
 
 				<span id="drag1" draggable="true" ondragstart="drag(event)" 
 						style="background-color:#F0FFF0; display: block ; float: left" class="cipher">

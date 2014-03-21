@@ -1,41 +1,53 @@
 <section data-ng-controller="IndexController" class="content">
 
-    <h1>Welcome to <img src="img/logo1.png" /></h1><br/>
-    <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-    <p>This is the first Bitcoin Bank that can offer intrest for your deposits. Interest
-    comes from hacking attempts to bitcoin vaults that are created by users. 
-    Every hacking attempt costs and if the secret vault phrase is solved the robber gets the whole vault content.</p>
-    <p>
-    	<a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a>
-    	<a href="#!/create_vault" class="btn btn-success btn-large" ng-hide="!global.authenticated">Create new vault &raquo;</a>
-    </p>
-    <br/>
-    <div class="row-fluid">
-        <div class="span4" ng:repeat="vault in vaults"
-          style="border: 1px dashed silver; padding:8px; min-width:250px; background-color:#F3F3F3">
-          <h2 align="center">{{vault.title}}</h2>
-          <p align="center">
-            <img src="img/safe.png" />
-          </p>
-          <p align="center">
-            <button class="btn btn-primary dropdown-toggle" ng-click="isCollapsed1 = !isCollapsed1">
-            	Show details
-            </button>
-            <button class="btn-success btn">{{vault.vault_bitcoin_amount}} mBTC</button>
-      			<div collapse="!isCollapsed1">
-      				<div align="center">
-                <table width="220">
-        					<tr><td>Days active:</td><td>12</td></tr>
-                  <tr><td>Days left:</td><td>7</td></tr>
-                  <tr><td>Robbing attempts:</td><td>144</td></tr>
-                  <tr><td>Location:</td><td>{{vault.location}}</td></tr>
-                </table>
-      				</div> 
-      			</div>
-          </p>
-          <p align="center">{{vault.description}}</p>
-          <p align="center"><a class="btn-inverse btn" href="#">Try to rob this vault &raquo;</a></p>
+    <div id="main">
+        <h3> Welcome to <img src="/img/logo1.png"></h3>
+    </div>
+   
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>This is the first Bitcoin Bank that can offer intrest for your deposits. Interest
+                comes from hacking attempts to bitcoin vaults that are created by users.
+                Every hacking attempt costs and if the secret vault phrase is solved the robber gets the whole vault content.
+            </p>
+            <p>
+                <a href="#" class="btn btn-primary btn-large">Learn more »</a>
+                <a href="#!/create_vault" class="btn btn-success btn-large ng-hide" ng-hide="!global.authenticated">Create new vault »</a>
+            </p>
         </div>
-  	</div><!--/row-->
+   </div>
+
+    <div class="row tiles">
+        <div style="min-height: 193px;" class="col-sm-4" ng-repeat="vault in vaults">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                  <h2 align="center">{{vault.title}}</h2>
+                  <p align="center">
+                    <img src="img/safe.png" />
+                  </p>
+                  <p align="center">
+                    <button class="btn btn-primary dropdown-toggle" ng-click="isCollapsed1 = !isCollapsed1">
+                    	Show details
+                    </button>
+                    <button class="btn-success btn">{{vault.vault_bitcoin_amount}} mBTC</button>
+              			<div collapse="!isCollapsed1">
+              				<div align="center">
+                        <table width="220">
+                					<tr><td>Days active:</td><td>12</td></tr>
+                          <tr><td>Days left:</td><td>7</td></tr>
+                          <tr><td>Robbing attempts:</td><td>144</td></tr>
+                          <tr><td>Location:</td><td>{{vault.location}}</td></tr>
+                        </table>
+              				</div> 
+              			</div>
+                  </p>
+                  <p align="center">{{vault.description}}</p>
+                  <p align="center">
+                    <a class="btn-inverse btn" href="#">Try to rob this vault &raquo;</a>
+                  </p>
+                </div>
+            </div>
+        </div>
+  	</div>
 
 </section>

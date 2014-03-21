@@ -75,6 +75,7 @@ angular.module('mean.system').controller('CreateVaultController',
 		 	 	'amount': $scope.amount, 
 		 	 	'end_date': $scope.end_date,
 		 	 	'location': $scope.location,
+		 	 	'description': $scope.description,
 		 	 	'ciphers' : selectedCipherSources})
 		 	 	.success(function(data, status, headers, config) {
 					console.log('success');
