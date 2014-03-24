@@ -21,11 +21,10 @@ exports.save = function(req, res) {
 		vault.title = req.body.vault_name;
 		vault.end_date = req.body.end_date;
 		vault.description = req.body.description;
+		vault.location = req.body.location;
 		vault.vault_bitcoin_amount = req.body.amount;
 		vault.user = req.user;
-		/*vault.cipher_code = function() {
-			console.log('stored function');
-		};*/
+
 		if(req.body.ciphers[0] !== undefined){
 			vault.cipher_code1 = req.body.ciphers[0];
 		}
@@ -39,8 +38,8 @@ exports.save = function(req, res) {
 		}
 
 		vault.save();
-
-		res.end('Vault created successfully!');
+		res.redirect('/');
+		//res.end('Vault created successfully!');
 	}else{
 		res.end('access denied.');
 	}

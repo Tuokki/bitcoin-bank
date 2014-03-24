@@ -31,6 +31,11 @@ var VaultSchema = new Schema({
         default: 'Default description',
         trim: true
     },
+    location : {
+        type: String,
+        default: 'Moscow',
+        trim: true
+    },
     vault_bitcoin_amount: {
         type: Number,
         default: 0

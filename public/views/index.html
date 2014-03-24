@@ -1,7 +1,7 @@
 <section data-ng-controller="IndexController" class="content">
 
     <div id="main">
-        <h3> Welcome to <img src="/img/logo1.png"></h3>
+        <h3> Welcome to <img src="/img/logo1.png" height="50"></h3>
     </div>
    
     <div class="panel panel-default">
@@ -9,8 +9,8 @@
             <p>This is the first site that offers interest for your Bitcoin deposits. Interest is earned from unsuccessfull burglary attempts to your Bitcoin Vault. You can design your own vault security, and so reduce the possibility of burglary.
             </p>
             <p>
-                <a href="#" class="btn btn-primary btn-large">Learn more »</a>
-                <a href="#!/create_vault" class="btn btn-success btn-large ng-hide" ng-hide="!global.authenticated">Create new vault »</a>
+                <a href="#" class="btn btn-primary btn-large" style="margin-bottom:3px;">Learn more »</a>
+                <a href="#!/create_vault" class="btn btn-success btn-large ng-hide" ng-hide="!global.authenticated" style="margin-bottom:3px;">Create new vault »</a>
             </p>
         </div>
    </div>
@@ -41,7 +41,7 @@
                   </p>
                   <p align="center">{{vault.description}}</p>
                   <p align="center">
-                    <a class="btn-inverse btn" href="#">Try to rob this vault &raquo;</a>
+                    <a class="btn" style="color:#ffffff; background-color:#060508; border-color: #4E4C57" href="#">Try to rob this vault &raquo;</a>
                   </p>
                 </div>
             </div>
