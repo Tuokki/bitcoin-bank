@@ -39,7 +39,7 @@ module.exports = function(app, passport, auth) {
     app.get('/withdraw', withdraw.render);
 
     //Send withdraw transaction to blockchain api
-    app.get('/send/:username/:address/:amount', withdraw.handleWithdraw);
+    app.get('/send/:address/:amount', withdraw.handleWithdraw);
 
     /* BITCOIN FUNCTIONALITY ENDS */
 

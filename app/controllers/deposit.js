@@ -43,7 +43,11 @@ exports.render = function(req, res) {
 
 exports.handlePayment = function(req, res) {
 
-	if(req.params.secret === 'secret' && req.param('value') !== undefined) {
+	// TOdO testaa oikealla rahalla
+	console.log('should be blockchain:' + req.headers.host);
+
+	if(req.params.secret === 'secret' && req.param('value') !== undefined &&
+		req.params.confirmations >= 6) {
 
 		User.findOne({ username: req.params.username }, function(err, user) {
 			if (err) {
@@ -57,15 +61,19 @@ exports.handlePayment = function(req, res) {
 					var balance = user.balance + value_in_m_btc;
 					user.balance = balance;
 					user.save();
+
+					res.end('*ok*');
 				}else{
 					console.log('Could not find user: '+req.params.username);
+					res.end('*not-ok*');
 				}
 			}
 		});
 
 	}else{
 		console.log('could not get money or secret is wrong');
+		res.end('*not-ok*');
 	}
 
-	res.end('*ok*');
+	
 };

@@ -40,6 +40,10 @@ var VaultSchema = new Schema({
         type: Number,
         default: 0
     },
+    robbery_count: {
+        type: Number,
+        default: 0
+    },
     hashed_pass_phrase: {
         type: String
     },

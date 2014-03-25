@@ -39,7 +39,6 @@ exports.save = function(req, res) {
 
 		vault.save();
 		res.redirect('/');
-		//res.end('Vault created successfully!');
 	}else{
 		res.end('access denied.');
 	}
@@ -53,11 +52,18 @@ exports.get_all_vaults = function(req, res) {
 
 		var userMap = {};
 
-
-		// TODO: palauta vain tarpeelliset tiedot, nyt palautuu kaikki
-		// esim salausfunktiot
 		vaults.forEach(function(vault) {
-			userMap[vault._id] = vault;
+
+			var exposed_vault = {};
+			exposed_vault.title = vault.title;
+			exposed_vault.created = vault.created;
+			exposed_vault.end_date = vault.end_date;
+			exposed_vault.description = vault.description;
+			exposed_vault.location = vault.location;
+			exposed_vault.robbery_count = vault.robbery_count;
+			exposed_vault.vault_bitcoin_amount = vault.vault_bitcoin_amount;
+			
+			userMap[vault._id] = exposed_vault;
 		});
 
 		res.send(userMap);

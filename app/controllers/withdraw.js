@@ -13,16 +13,16 @@ exports.render = function(req, res) {
 
 exports.handleWithdraw = function(req, res) {
 
-	if(req.params.amount !== undefined && req.params.username !== undefined && req.params.address !== undefined){
+	if(req.params.amount !== undefined && req.params.address !== undefined){
 
 		var fee_in_satoshi = 10000;
 		var addr = req.params.address;
 		var amount_in_satoshi = Math.round(req.params.amount*100000);
 
-		console.log(amount_in_satoshi);
+		//console.log(amount_in_satoshi);
 
 		// tarkista että käyttäjä olemassa ja tilillä riittävästi rahaa
-		User.findOne({ username: req.params.username }, function(err, user) {
+		User.findOne({ username: req.user.username }, function(err, user) {
 			if (err) {
 				return console.error(err);
 			}else{
@@ -63,7 +63,7 @@ exports.handleWithdraw = function(req, res) {
 						res.end('Error: Balance not sufficient in your account');
 					}
 				}else{
-					console.log('Could not find user: '+req.params.username);
+					console.log('Could not find user: '+req.user.username);
 				}
 			}
 		});
