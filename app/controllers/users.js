@@ -17,7 +17,7 @@ exports.authCallback = function(req, res) {
  * Show login form
  */
 exports.signin = function(req, res) {
-    console.log('Asiakas kirjautui: ' + req.user.username);
+    console.log('Asiakas kirjautui');
     res.render('users/signin', {
         title: 'Signin',
         message: req.flash('error')
