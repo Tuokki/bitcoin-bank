@@ -44,7 +44,7 @@ var VaultSchema = new Schema({
         type: Number,
         default: 0
     },
-    hashed_pass_phrase: {
+    pass_phrase: {
         type: String
     },
     cipher_code1: Function,

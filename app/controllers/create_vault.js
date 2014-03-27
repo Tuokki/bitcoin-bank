@@ -6,12 +6,35 @@
 var mongoose = require('mongoose'),
     Vault = mongoose.model('Vault');
 
+var fs = require('fs');
+var wordListPath = require('word-list');
+var words = fs.readFileSync(wordListPath, 'utf8').split('\n');
+var uniqueRandom = require('unique-random')(0, words.length - 1);
 
 exports.render = function(req, res) {
     res.render('create_vault', {
         user: req.user ? JSON.stringify(req.user) : 'null'
     });
 };
+
+// sisäinen palvelu
+function randomWord() {
+    return words[uniqueRandom()];
+}
+
+// sisäinen palvelu
+// kutsutaan heti kun vault on luotu
+// ja päivän välein sen jälkeen jokaiselle aktiiviselle vaultille
+function generate_vault_password_phrase(){
+    return randomWord() + ' ' + randomWord() + ' ' + randomWord();
+}
+
+// sisäinen palvelu
+function get_vault_clear_password(vault_name) {
+	console.log(vault_name);
+    // tähän oikeasti sitten tietokannasta haku
+    return 'mita jaba duunaa';
+}
 
 exports.save = function(req, res) {
 
@@ -36,6 +59,8 @@ exports.save = function(req, res) {
 		if(req.body.ciphers[2] !== undefined){
 			vault.cipher_code3 = req.body.ciphers[2];
 		}
+
+		vault.pass_phrase = generate_vault_password_phrase();
 
 		vault.save();
 		res.redirect('/');
@@ -68,5 +93,43 @@ exports.get_all_vaults = function(req, res) {
 
 		res.send(userMap);
 	});
+
+};
+
+// rest-palvelu
+exports.get_vault_crypted_password = function (vault_name) {
+	console.log(vault_name);
+    // haetaan selvä salasana ja kryptataan
+    // käyttäjän määrittämillä funktioilla sitten
+    return 'nurå håvå syybåå';
+};
+
+// rest-palvelu
+// palauttaa oikeiden kirjainten määrän stringinä
+exports.guess = function (guessWord) {
+
+    var threeRandomWords = get_vault_clear_password('vault name');
+   
+    if(threeRandomWords.length === guessWord.length) {
+        var correctCount = 0;
+       
+        for(var i = 0; i < guessWord.length; i++){
+       
+            if(guessWord.charAt(i) === threeRandomWords.charAt(i)) {
+                correctCount++;
+            }
+           
+        }
+       
+        if(correctCount === guessWord.length){
+            return 'Vault opened!';
+        }else{
+            return 'Correct char count: ' + correctCount + '/' + guessWord.length;
+        }
+       
+    }else{
+        return 'Guess length ' + guessWord.length + ' does not match password length: '+
+        threeRandomWords.length;
+    }
 
 };

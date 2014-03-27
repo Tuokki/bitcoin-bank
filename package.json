@@ -24,6 +24,8 @@
     "connect-mongo": "~0.4.0",
     "connect-flash": "~0.1.1",
     "crypto": "0.0.3",
+    "word-list": "~0.1.0",
+    "unique-random": "~0.1.0",
     "passport": "~0.1.18",
     "passport-local": "~0.1.6",
     "passport-facebook": "~1.0.2",
@@ -62,7 +64,7 @@
   "devDependencies": {
     "supertest": "latest",
     "should": "latest",
-    "grunt-contrib-watch": "latest",
+    "grunt-contrib-watch": "0.6.0",
     "grunt-contrib-jshint": "latest",
     "grunt-nodemon": "0.1.2",
     "grunt-concurrent": "latest",
