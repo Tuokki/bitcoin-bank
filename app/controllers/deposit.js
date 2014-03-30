@@ -45,10 +45,11 @@ exports.handlePayment = function(req, res) {
 
 	// TOdO testaa oikealla rahalla
 	console.log('should be blockchain:' + req.headers.host);
-	console.log('blockchain confirmations: ' + req.params.confirmations);
+	console.log('blockchain confirmations: ' + req.query.confirmations);
+	console.log(req);
 
 	if(req.params.secret === 'secret' && req.param('value') !== undefined &&
-		req.params.confirmations >= 6) {
+		req.query.confirmations >= 6) {
 
 		User.findOne({ username: req.params.username }, function(err, user) {
 			if (err) {
