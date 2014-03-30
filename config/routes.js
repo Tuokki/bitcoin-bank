@@ -58,6 +58,9 @@ module.exports = function(app, passport, auth) {
     // vaatii kirjautumisen ja rahaa tilillä
     app.get('/guess/:vault/:guess', create_vault.guess);
 
+    var rob_vault = require('../app/controllers/rob_vault');
+    app.get('/rob_vault', rob_vault.render);
+
     app.get('/subapp', function (req, res) {
         res.send('You are on the /sub/subapp page.');
     });

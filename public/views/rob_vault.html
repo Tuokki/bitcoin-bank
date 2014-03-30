@@ -1,0 +1,41 @@
+<section data-ng-controller="RobVaultController" class="content" data-ng-show="global.authenticated">
+	<h2>Rob a vault</h2>
+
+	<p>
+		Vault robbing attempt costs 0.1 mBTC and it will be automatically reduced from your balance.
+	</p>
+
+	<p>
+		<b>Crypted password phrase:</b> {{crypted_password}}
+	</p>
+	<form class="form-horizontal" role="form" name="form">
+	  <div class="form-group">
+	    <div class="col-sm-2">
+	    	<input name="text1" ng-minlength="{{len1}}" ng-maxlength="{{len1}}"
+	    	maxlength="{{len1}}" 
+	    	type="text" ng-model='text1' class="form-control" required>
+	    </div>
+	    <div class="col-sm-2">
+	    	<input ng-minlength="{{len2}}" ng-maxlength="{{len2}}"
+	    	maxlength="{{len2}}"
+	    	type="text" ng-model='text2' class="form-control" required>
+	    </div>
+	     <div class="col-sm-2">
+	    	<input ng-minlength="{{len3}}" ng-maxlength="{{len3}}"
+	    	maxlength="{{len3}}"
+	    	type="text" ng-model='text3' class="form-control" required>
+	    </div>
+	  </div>
+	  	<div>
+		  	<small class="error" ng-show="form.text1.$error.minlength">
+				Vault name is required to be at least {{len1}} characters.
+			</small>
+		</div>
+	  	<button ng-click="robVault()" ng-disabled="form.$invalid" class="btn" style="color:#ffffff; background-color:#060508; border-color: #4E4C57">
+			Send password guess to server
+		</button>
+		<i>{{message}}</i>
+		<i>{{error}}</i>
+  </form>
+
+</section>

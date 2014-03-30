@@ -4,19 +4,19 @@
 
 var caesarCipher = new Object();
 caesarCipher.name = "Caesar cipher";
-caesarCipher.source = "function crypt(text){var shift=25;var key=parseInt(shift,10);if(key<0||key>=26){console.log('Shift is out of range (0-25)');return}key=(26-key)%26;var cipheredText=cryptCaesar(text,key);console.log(text+' -> '+cipheredText);return cipheredText}function cryptCaesar(input,key){var output='';for(var i=0;i<input.length;i++){var c=input.charCodeAt(i);if(c>=65&&c<=90){output+=String.fromCharCode((c-65+key)%26+65)}else if(c>=97&&c<=122){output+=String.fromCharCode((c-97+key)%26+97)}else{output+=input.charAt(i)}}return output}";
+caesarCipher.source = "function crypt(text) {var shift = 25;var key = parseInt(shift, 10);if (key < 0 || key >= 26) {console.log('Shift is out of range (0-25)');return}key = (26 - key) % 26;var input = text; var output = '';for (var i = 0; i < input.length; i++) {var c = input.charCodeAt(i);if (c >= 65 && c <= 90) {output += String.fromCharCode((c - 65 + key) % 26 + 65)} else if (c >= 97 && c <= 122) {output += String.fromCharCode((c - 97 + key) % 26 + 97)} else {output += input.charAt(i)}} var cipheredText = output;return cipheredText}";
 
 var ownCipher1 = new Object();
 ownCipher1.name = "Own cipher 1";
-ownCipher1.source = "function crypt(text){return text+'?';}";
+ownCipher1.source = "function crypt(text){return text;}";
 
 var ownCipher2 = new Object();
 ownCipher2.name = "Own cipher 2";
-ownCipher2.source = "function crypt(text){return text+'!';}";
+ownCipher2.source = "function crypt(text){return text;}";
 
 var ownCipher3 = new Object();
 ownCipher3.name = "Own cipher 3";
-ownCipher3.source = "function crypt(text){return text+' add something';}";
+ownCipher3.source = "function crypt(text){return text;}";
 
 var ciphers = new Array();
 ciphers[0] = caesarCipher;

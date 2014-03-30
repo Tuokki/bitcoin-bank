@@ -13,6 +13,9 @@ angular.module('mean').config(['$routeProvider',
         when('/create_vault', {
             templateUrl: 'views/create_vault.html'
         }).
+        when('/rob_vault', {
+            templateUrl: 'views/rob_vault.html'
+        }).
         when('/', {
             templateUrl: 'views/index.html'
         }).
