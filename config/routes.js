@@ -49,6 +49,15 @@ module.exports = function(app, passport, auth) {
     app.post('/save_vault', create_vault.save);
     app.get('/vaults', create_vault.get_all_vaults);
 
+    // ottaa parametrina holvin nimen
+    // palauttaa salatun holvin salasanan, ei vaadi kirjautumista
+    app.get('/get_vault_crypted_password/:vault', create_vault.get_vault_crypted_password);
+
+    // ottaa parametrina arvauksen ja holvin nimen
+    // palauttaa oikeiden kirjainten määrän
+    // vaatii kirjautumisen ja rahaa tilillä
+    app.get('/guess/:vault/:guess', create_vault.guess);
+
     app.get('/subapp', function (req, res) {
         res.send('You are on the /sub/subapp page.');
     });

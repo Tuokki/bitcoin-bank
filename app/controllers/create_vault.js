@@ -30,11 +30,24 @@ function generate_vault_password_phrase(){
 }
 
 // sisäinen palvelu
-function get_vault_clear_password(vault_name) {
-	console.log(vault_name);
-    // tähän oikeasti sitten tietokannasta haku
-    return 'mita jaba duunaa';
-}
+/*function get_vault_clear_password(vault_name) {
+
+	Vault.findOne({ title: vault_name }, function (err, vault) {
+
+			console.log(vault);
+
+			if (err) {
+				return console.error(err);
+			}else{
+				if(vault !== null) {
+					return vault.pass_phrase;
+				}else{
+					return 'Cannot find vault';
+				}
+			}
+		});
+
+}*/
 
 exports.save = function(req, res) {
 
@@ -97,39 +110,89 @@ exports.get_all_vaults = function(req, res) {
 };
 
 // rest-palvelu
-exports.get_vault_crypted_password = function (vault_name) {
-	console.log(vault_name);
-    // haetaan selvä salasana ja kryptataan
-    // käyttäjän määrittämillä funktioilla sitten
-    return 'nurå håvå syybåå';
+exports.get_vault_crypted_password = function (req, res) {
+
+	if(req.params.vault !== undefined) {
+
+		Vault.findOne({ title: req.params.vault }, function (err, vault) {
+			if (err) {
+				return console.error(err);
+			}else{
+				if(vault !== null) {
+					var crypted_password = vault.pass_phrase;
+					if(vault.cipher_code1 !== undefined) {
+						crypted_password = vault.cipher_code1(crypted_password);
+					}
+					if(vault.cipher_code2 !== undefined) {
+						crypted_password = vault.cipher_code2(crypted_password);
+					}
+					if(vault.cipher_code3 !== undefined) {
+						crypted_password = vault.cipher_code3(crypted_password);
+					}
+
+					res.end(crypted_password);
+				}else{
+					res.end('Cannot find vault');
+				}
+			}
+		});
+
+	}else{
+		return res.end('Error');
+	}
 };
 
 // rest-palvelu
 // palauttaa oikeiden kirjainten määrän stringinä
-exports.guess = function (guessWord) {
+exports.guess = function (req, res) {
 
-    var threeRandomWords = get_vault_clear_password('vault name');
-   
-    if(threeRandomWords.length === guessWord.length) {
-        var correctCount = 0;
-       
-        for(var i = 0; i < guessWord.length; i++){
-       
-            if(guessWord.charAt(i) === threeRandomWords.charAt(i)) {
-                correctCount++;
-            }
-           
-        }
-       
-        if(correctCount === guessWord.length){
-            return 'Vault opened!';
-        }else{
-            return 'Correct char count: ' + correctCount + '/' + guessWord.length;
-        }
-       
-    }else{
-        return 'Guess length ' + guessWord.length + ' does not match password length: '+
-        threeRandomWords.length;
-    }
+	// tarkistetaan että kirjautunut
+	if(req.user !== undefined) {
 
+		// TODO: tarkistetaan että mashia
+		// TODO: otetaan mashia pois
+
+		Vault.findOne({ title: req.params.vault }, function (err, vault) {
+
+			if (err) {
+				res.end(err);
+			}else{
+				if(vault !== null) {
+					var threeRandomWords = vault.pass_phrase;
+					var guessWord = req.params.guess;
+
+					if(guessWord !== null && threeRandomWords !== null) {
+						if(threeRandomWords.length === guessWord.length) {
+							var correctCount = 0;
+
+							for(var i = 0; i < guessWord.length; i++){
+
+								if(guessWord.charAt(i) === threeRandomWords.charAt(i)) {
+									correctCount++;
+								}
+
+							}
+
+							if(correctCount === guessWord.length){
+								res.end('Vault opened!');
+							}else{
+								res.end('Correct char count: ' + correctCount + '/' + guessWord.length);
+							}
+
+						}else{
+							res.end('Guess length ' + guessWord.length + ' does not match password length: '+
+							threeRandomWords.length);
+						}
+					}else{
+						res.end('Error');
+					}
+				}else{
+					res.end('Cannot find vault');
+				}
+			}
+		});
+
+	}else{
+		res.end('You need to login first');
+	}
 };
