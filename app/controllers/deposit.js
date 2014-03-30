@@ -45,6 +45,7 @@ exports.handlePayment = function(req, res) {
 
 	// TOdO testaa oikealla rahalla
 	console.log('should be blockchain:' + req.headers.host);
+	console.log('blockchain confirmations: ' + req.params.confirmations);
 
 	if(req.params.secret === 'secret' && req.param('value') !== undefined &&
 		req.params.confirmations >= 6) {
