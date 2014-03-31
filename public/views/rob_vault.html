@@ -1,5 +1,5 @@
 <section data-ng-controller="RobVaultController" class="content" data-ng-show="global.authenticated">
-	<h2>Rob a vault</h2>
+	<h2>Rob a vault: {{vault_name}}</h2>
 
 	<p>
 		Vault robbing attempt costs 0.1 mBTC and it will be automatically reduced from your balance.
@@ -7,6 +7,9 @@
 
 	<p>
 		<b>Crypted password phrase:</b> {{crypted_password}}
+	</p>
+	<p>
+		<b>Write the original password phrase</b>
 	</p>
 	<form class="form-horizontal" role="form" name="form">
 	  <div class="form-group">
@@ -32,10 +35,17 @@
 			</small>
 		</div>
 	  	<button ng-click="robVault()" ng-disabled="form.$invalid" class="btn" style="color:#ffffff; background-color:#060508; border-color: #4E4C57">
-			Send password guess to server
+			<span class="glyphicon glyphicon-lock"></span> Submit password phrase
 		</button>
-		<i>{{message}}</i>
-		<i>{{error}}</i>
+
+		<i style="color:green">{{message}}</i>
+		<i style="color:red">{{error}}</i>
+
+		<br/><br/>
+		<p>
+			Tips:
+			<li>Password phrase is same length as the crypted phrase</li>
+		</p>
   </form>
 
 </section>

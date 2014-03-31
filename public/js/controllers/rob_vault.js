@@ -7,6 +7,7 @@ angular.module('mean.system').controller('RobVaultController',
     $scope.global = Global;
 
     $scope.crypted_password = 'Loading...';
+    $scope.vault_name = $location.$$search.vault;
 
     $http.get('/get_vault_crypted_password/' + $location.$$search.vault)
 		.success(function (data){
@@ -34,12 +35,12 @@ angular.module('mean.system').controller('RobVaultController',
 						if(data.indexOf('Error') !== -1){
 							$scope.error = data;
 						}else{
-							$scope.message = data;
+							$scope.message = 'Vault did not open: ' + data;
 							$scope.error = '';
 						}
 					});
 			}else{
-				$scope.error = 'Give all fields maximum number of chars';
+				$scope.error = 'Password length is too short';
 				$scope.message = '';
 			}
 		}else{

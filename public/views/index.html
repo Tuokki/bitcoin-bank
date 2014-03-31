@@ -41,7 +41,7 @@
                   </p>
                   <p align="center">{{vault.description}}</p>
                   <p align="center">
-                    <a class="btn" style="color:#ffffff; background-color:#060508; border-color: #4E4C57" href="#!/rob_vault?vault={{vault.title}}">Try to rob this vault &raquo;</a>
+                    <a class="btn" style="color:#ffffff; background-color:#060508; border-color: #4E4C57" href="#!/rob_vault?vault={{vault.title}}" ng-disabled="!global.authenticated">Try to rob this vault &raquo;</a>
                   </p>
                 </div>
             </div>

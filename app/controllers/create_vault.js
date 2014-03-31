@@ -176,6 +176,8 @@ exports.guess = function (req, res) {
 							if(correctCount === guessWord.length){
 								res.end('Vault opened!');
 							}else{
+								vault.robbery_count = vault.robbery_count + 1;
+								vault.save();
 								res.end('Correct char count: ' + correctCount + '/' + guessWord.length);
 							}
 
