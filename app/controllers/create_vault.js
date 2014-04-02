@@ -100,8 +100,21 @@ exports.get_all_vaults = function(req, res) {
 			exposed_vault.location = vault.location;
 			exposed_vault.robbery_count = vault.robbery_count;
 			exposed_vault.vault_bitcoin_amount = vault.vault_bitcoin_amount;
-			
-			userMap[vault._id] = exposed_vault;
+
+			// days left
+			// TODO: piilota ryöstösivulta myös
+
+			var oneDay = 24*60*60*1000;
+			var today = new Date();
+
+			var diffDays = Math.round(Math.abs((today.getTime() - exposed_vault.end_date.getTime())/oneDay));
+			exposed_vault.days_left = diffDays;
+
+			exposed_vault.days_active = Math.round(Math.abs((exposed_vault.created.getTime() - today.getTime())/oneDay));
+
+			if(exposed_vault.end_date > today) {
+				userMap[vault._id] = exposed_vault;
+			}
 		});
 
 		res.send(userMap);
