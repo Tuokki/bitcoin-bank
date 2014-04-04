@@ -75,9 +75,32 @@ exports.save = function(req, res) {
 
 		vault.pass_phrase = generate_vault_password_phrase();
 
-		vault.save();
-		res.redirect('/');
+		// TODO voisi ehkä myös testata että algoritmi
+		// ei syötä kovakoodattua salasanaa, onnistuu kokeilemalla algoritmia
+		// eri salasanoilla ja vertaamalla tuloksia
+
+		// testataan että generoidun salasanan 
+		// pituus ei muutu kun se kryptataan
+		var crypted_password = vault.pass_phrase;
+		if(vault.cipher_code1 !== undefined) {
+			crypted_password = vault.cipher_code1(crypted_password);
+		}
+		if(vault.cipher_code2 !== undefined) {
+			crypted_password = vault.cipher_code2(crypted_password);
+		}
+		if(vault.cipher_code3 !== undefined) {
+			crypted_password = vault.cipher_code3(crypted_password);
+		}
+		if(crypted_password.length === vault.pass_phrase.length){
+			vault.save();
+			res.end();
+		}else{
+			res.status(404);
+			res.end('Cipher algorithm cannot change the length of password phrase');
+		}
+		
 	}else{
+		res.status(404);
 		res.end('access denied.');
 	}
 
@@ -108,6 +131,7 @@ exports.get_all_vaults = function(req, res) {
 			var today = new Date();
 
 			var diffDays = Math.round(Math.abs((today.getTime() - exposed_vault.end_date.getTime())/oneDay));
+			diffDays++;
 			exposed_vault.days_left = diffDays;
 
 			exposed_vault.days_active = Math.round(Math.abs((exposed_vault.created.getTime() - today.getTime())/oneDay));

@@ -1,14 +1,18 @@
 'use strict';
 
 angular.module('mean.system').controller('CreateVaultController',
-	['$scope', '$http', 'Global', function ($scope, $http, Global) {
+	['$scope', '$http', '$location', 'Global', function ($scope, $http, $location, Global) {
 	$scope.global = Global;
 
-	$scope.minDate = ( $scope.minDate ) ? null : new Date();
+	var today = new Date();
+	var tomorrow = new Date();
+	tomorrow.setDate(today.getDate()+1);
+
+	$scope.minDate = ( $scope.minDate ) ? null : tomorrow;
 
 	$scope.dateDifference = function () {
 		if($scope.end_date !== undefined){
-			return Math.floor(($scope.end_date.getTime() - $scope.minDate.getTime())/(1000*60*60*24)+1);
+			return Math.floor(($scope.end_date.getTime() - $scope.minDate.getTime())/(1000*60*60*24)+2);
 		}else{
 			return 0;
 		}
@@ -79,15 +83,19 @@ angular.module('mean.system').controller('CreateVaultController',
 		 	 	'ciphers' : selectedCipherSources})
 		 	 	.success(function(data, status, headers, config) {
 					console.log('success');
+					$scope.error = '';
+					$scope.message = 'Vault created successfully!';
+					$location.path('/');
 				}).error(function(data, status) { // called asynchronously if an error occurs
 					// or server returns response with an error status.
 					console.log('fail');
+					$scope.message = '';
+					$scope.error = data;
 				});
 
 		 	console.log(user);
 
-			$scope.error = '';
-			$scope.message = 'Vault created successfully!';
+			
 		}else{
 			$scope.message = '';
 			$scope.error = 'Fill all required fields';
