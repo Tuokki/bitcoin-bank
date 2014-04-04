@@ -8,6 +8,8 @@
 var mongoose = require('mongoose'),
     Vault = mongoose.model('Vault');
 
+Schema = mongoose.Schema;
+
 Vault.find({}, function (err, vaults) {
     vaults.forEach(function(vault) {
 
