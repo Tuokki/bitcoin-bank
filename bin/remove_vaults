@@ -1,3 +1,31 @@
 #!/usr/bin/env node
 
+'use strict';
+
+/**
+ * Module dependencies.
+ */
+var mongoose = require('mongoose'),
+    Vault = mongoose.model('Vault');
+
+Vault.find({}, function (err, vaults) {
+    vaults.forEach(function(vault) {
+
+    	var oneDay = 24*60*60*1000;
+		var today = new Date();
+
+		var diffDays = Math.round(Math.abs((today.getTime() - vault.end_date.getTime())/oneDay));
+		diffDays++;
+
+		// jos ei ryöstetty ja rahaa holvissa ja aika umpeutunut
+		// siirrä rahat omistajalle ja poista holvi
+
+		if(diffDays < 0){
+			console.log('holvi: ' + vault.title + ' poistetaan ja rahat palautetaan korkoineen');
+		}
+
+    });
+
+});
+
 console.log('eräajo poistaa holveja');
