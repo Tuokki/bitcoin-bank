@@ -5,34 +5,14 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose'),
-    Vault = mongoose.model('Vault');
+var vault = require('./models/vault');
+var mongoose = require('mongoose');
+var holvit = mongoose.model('Vault', vault.vaultSchema);
+var config = require('./config/config');
 
-var config = require('./config/config'),
-    auth = require('./config/middlewares/authorization'),
-    mongoose = require('mongoose');
-
-//Bootstrap db connection
 var db = mongoose.connect(config.db);
 
-var models_path = __dirname + '/app/models';
-var walk = function(path) {
-    fs.readdirSync(path).forEach(function(file) {
-        var newPath = path + '/' + file;
-        var stat = fs.statSync(newPath);
-        if (stat.isFile()) {
-            if (/(.*)\.(js$|coffee$)/.test(file)) {
-                require(newPath);
-            }
-        } else if (stat.isDirectory()) {
-            walk(newPath);
-        }
-    });
-};
-
-walk(models_path);
-
-Vault.find({}, function (err, vaults) {
+holvit.find({}, function (err, vaults) {
     vaults.forEach(function(vault) {
 
     	var oneDay = 24*60*60*1000;
@@ -51,5 +31,3 @@ Vault.find({}, function (err, vaults) {
     });
 
 });
-
-console.log('eräajo poistaa holveja');

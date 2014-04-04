@@ -73,3 +73,5 @@ VaultSchema.statics.load = function(id, cb) {
 };
 
 mongoose.model('Vault', VaultSchema);
+
+module.exports.vaultSchema = VaultSchema;
