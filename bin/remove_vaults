@@ -2,32 +2,80 @@
 
 'use strict';
 
-/**
- * Module dependencies.
- */
-var vault = require('./models/vault');
 var mongoose = require('mongoose');
+var db = mongoose.connect('mongodb://tuokki:samout@dharma.mongohq.com:10038/app21156008');
+var vault = require('./../app/models/vault');
+var user = require('./../app/models/user');
+var _ = require('nimble');
+
 var holvit = mongoose.model('Vault', vault.vaultSchema);
-var config = require('./config/config');
+var kayttajat = mongoose.model('User', user.userSchema);	
 
-var db = mongoose.connect(config.db);
+var ships = new Array();
 
-holvit.find({}, function (err, vaults) {
-    vaults.forEach(function(vault) {
+_.series([
+    function (callback) {
+        setTimeout(function () {
+            holvit.find({}, function (err, vaults) {
 
-    	var oneDay = 24*60*60*1000;
-		var today = new Date();
+            	
+			    vaults.forEach(function(vault) {
 
-		var diffDays = Math.round(Math.abs((today.getTime() - vault.end_date.getTime())/oneDay));
-		diffDays++;
+					var today = new Date();
 
-		// jos ei ryöstetty ja rahaa holvissa ja aika umpeutunut
-		// siirrä rahat omistajalle ja poista holvi
+					// jos ei ryöstetty ja rahaa holvissa ja aika umpeutunut
+					// siirrä rahat omistajalle ja poista holvi
 
-		if(diffDays < 0){
-			console.log('holvi: ' + vault.title + ' poistetaan ja rahat palautetaan korkoineen');
-		}
+					if(today.getTime() > vault.end_date.getTime()){
+						console.log('Käsitellään holvi: ' + vault.title + ', jossa rahaa: ' +
+							vault.vault_bitcoin_amount + 'mBTC');
 
-    });
+							var ship = new Object();
+							ship.to = vault.user;
+							ship.money = vault.vault_bitcoin_amount;
 
-});
+							ships.push(ship);
+
+							console.log('poistetaan holvi');
+							vault.remove();
+							
+					}
+
+			    });
+
+			   
+
+			});
+            callback();
+        }, 0);
+    },
+    function (callback) {
+        setTimeout(function () {
+            kayttajat.find({}, function (err, users) {
+
+			    users.forEach(function(user) {
+
+			    	for(var i in ships){
+				  
+				    	if(user._id.toString() === ships[i].to.toString()){
+
+				    		user.balance = user.balance + ships[i].money;
+				    		user.save();
+				    		console.log('user:'+user.username+' got money ' + ships[i].money);
+				    	}
+				    	
+			    	}
+
+			    });
+
+			    console.log('Batch job end');
+			    process.exit(0);
+
+			});
+			callback();
+        }, 0);
+    }
+]);
+
+
+
