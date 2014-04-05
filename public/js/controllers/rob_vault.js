@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('mean.system').controller('RobVaultController',
-	['$scope', '$http', '$location', 'Global',
-	function ($scope, $http, $location, Global) {
+	['$scope', '$http', '$location', '$timeout', 'Global',
+	function ($scope, $http, $location, $timeout, Global) {
 
     $scope.global = Global;
 
@@ -34,10 +34,15 @@ angular.module('mean.system').controller('RobVaultController',
 					$scope.guess).success(function(data) {
 						if(data.indexOf('Error') !== -1){
 							$scope.error = data;
-						}else if(data.indexOf('opened') !== -1){
+						}else if(data.indexOf('cracked') !== -1){
+
 							$scope.message = data;
 							$scope.error = '';
-							$location.path('/'); // TODO joku onnittelusivu tähän?
+
+							$timeout(function(){
+								$location.path('/'); 
+							},2000);
+							
 						}else{
 							$scope.message = 'Vault did not open: ' + data;
 							$scope.error = '';

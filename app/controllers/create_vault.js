@@ -29,25 +29,6 @@ function generate_vault_password_phrase(){
     return randomWord() + ' ' + randomWord() + ' ' + randomWord();
 }
 
-// sisäinen palvelu
-/*function get_vault_clear_password(vault_name) {
-
-	Vault.findOne({ title: vault_name }, function (err, vault) {
-
-			console.log(vault);
-
-			if (err) {
-				return console.error(err);
-			}else{
-				if(vault !== null) {
-					return vault.pass_phrase;
-				}else{
-					return 'Cannot find vault';
-				}
-			}
-		});
-
-}*/
 
 exports.save = function(req, res) {
 
@@ -91,12 +72,24 @@ exports.save = function(req, res) {
 		if(vault.cipher_code3 !== undefined) {
 			crypted_password = vault.cipher_code3(crypted_password);
 		}
-		if(crypted_password.length === vault.pass_phrase.length){
-			vault.save();
-			res.end();
-		}else{
+
+		// testataan että käyttäjällä on tarpeeksi massia
+		if(req.user.balance < req.body.amount || req.body.amount === 0){
 			res.status(404);
-			res.end('Cipher algorithm cannot change the length of password phrase');
+			res.end('Not enough balance');
+		}else{
+			if(crypted_password.length === vault.pass_phrase.length){
+
+				// otetaan käyttäjältä rahaa saman verran pois kun holviin menee
+				req.user.balance = req.user.balance - req.body.amount;
+				req.user.save();
+
+				vault.save();
+				res.end();
+			}else{
+				res.status(404);
+				res.end('Cipher algorithm cannot change the length of password phrase');
+			}
 		}
 		
 	}else{
@@ -186,50 +179,69 @@ exports.guess = function (req, res) {
 	// tarkistetaan että kirjautunut
 	if(req.user !== undefined) {
 
-		// TODO: tarkistetaan että mashia
-		// TODO: otetaan mashia pois
+		// Tarkistetaan että mashia
+		if(req.user.balance < 0.1){
+			res.end('Not enough balance');
+		}else {
 
-		Vault.findOne({ title: req.params.vault }, function (err, vault) {
+			// Otetaan mashia pois
+			req.user.balance = req.user.balance - 0.1;
+			req.user.save();
 
-			if (err) {
-				res.end(err);
-			}else{
-				if(vault !== null) {
-					var threeRandomWords = vault.pass_phrase;
-					var guessWord = req.params.guess;
+			Vault.findOne({ title: req.params.vault }, function (err, vault) {
 
-					if(guessWord !== null && threeRandomWords !== null) {
-						if(threeRandomWords.length === guessWord.length) {
-							var correctCount = 0;
+				if (err) {
+					res.end(err);
+				}else{
+					if(vault !== null) {
+						// Lisätään holviin 90% arvausmaksusta
+						vault.vault_bitcoin_amount = vault.vault_bitcoin_amount + 0.09;
+						vault.save();
 
-							for(var i = 0; i < guessWord.length; i++){
+						var threeRandomWords = vault.pass_phrase;
+						var guessWord = req.params.guess;
 
-								if(guessWord.charAt(i) === threeRandomWords.charAt(i)) {
-									correctCount++;
+						if(guessWord !== null && threeRandomWords !== null) {
+							if(threeRandomWords.length === guessWord.length) {
+								var correctCount = 0;
+
+								for(var i = 0; i < guessWord.length; i++){
+
+									if(guessWord.charAt(i) === threeRandomWords.charAt(i)) {
+										correctCount++;
+									}
+
 								}
 
-							}
+								if(correctCount === guessWord.length){
+									//ryöstäjä saa saaliinsa
+									req.user.balance = req.user.balance + vault.vault_bitcoin_amount;
+									req.user.save();
 
-							if(correctCount === guessWord.length){
-								res.end('Vault opened!');
+									vault.vault_bitcoin_amount = 0;
+									vault.save();
+
+									res.end('Vault cracked! Redirecting to main page...');
+								}else{
+									vault.robbery_count = vault.robbery_count + 1;
+									vault.save();
+									res.end('Correct char count: ' + correctCount + '/' + guessWord.length);
+								}
+
 							}else{
-								vault.robbery_count = vault.robbery_count + 1;
-								vault.save();
-								res.end('Correct char count: ' + correctCount + '/' + guessWord.length);
+								res.end('Guess length ' + guessWord.length + ' does not match password length: '+
+								threeRandomWords.length);
 							}
-
 						}else{
-							res.end('Guess length ' + guessWord.length + ' does not match password length: '+
-							threeRandomWords.length);
+							res.end('Error');
 						}
 					}else{
-						res.end('Error');
+						res.end('Cannot find vault');
 					}
-				}else{
-					res.end('Cannot find vault');
 				}
-			}
-		});
+			});
+	
+	}
 
 	}else{
 		res.end('You need to login first');
