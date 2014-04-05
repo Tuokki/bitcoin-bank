@@ -61,7 +61,8 @@ _.series([
 
 				    		user.balance = user.balance + ships[i].money;
 				    		user.save();
-				    		console.log('user:'+user.username+' got money ' + ships[i].money);
+				    		console.log('User: '+user.username+' got money ' + ships[i].money + 'mBTC');
+				    		console.log('New balance: ' + user.balance + 'mBTC');
 				    	}
 				    	
 			    	}
