@@ -17,7 +17,6 @@ _.series([
     function (callback) {
         setTimeout(function () {
             holvit.find({}, function (err, vaults) {
-
             	
 			    vaults.forEach(function(vault) {
 
@@ -53,16 +52,16 @@ _.series([
         setTimeout(function () {
             kayttajat.find({}, function (err, users) {
 
-			    users.forEach(function(user) {
+			    users.forEach(function(db_user) {
 
 			    	for(var i in ships){
 				  
-				    	if(user._id.toString() === ships[i].to.toString()){
+				    	if(db_user._id.toString() === ships[i].to.toString()){
 
-				    		user.balance = user.balance + ships[i].money;
-				    		user.save();
-				    		console.log('User: '+user.username+' got money ' + ships[i].money + 'mBTC');
-				    		console.log('New balance: ' + user.balance + 'mBTC');
+				    		db_user.balance = db_user.balance + ships[i].money;
+				    		console.log('User: '+db_user.username+' got money ' + ships[i].money + 'mBTC');
+				    		console.log('New balance: ' + db_user.balance + 'mBTC');
+				    		db_user.save();
 				    	}
 				    	
 			    	}
