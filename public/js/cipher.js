@@ -206,4 +206,10 @@ function resetSource() {
    
 }
 
+function removeAllCiphers() {
+        document.getElementById('div1').innerHTML = '';
+        document.getElementById('div2').innerHTML = '';
+        document.getElementById('div3').innerHTML = '';
+}
+
 /* jshint ignore:end */
