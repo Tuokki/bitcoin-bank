@@ -11,6 +11,8 @@ var _ = require('nimble');
 var holvit = mongoose.model('Vault', vault.vaultSchema);
 var kayttajat = mongoose.model('User', user.userSchema);	
 
+var total_system_money = 0.00;
+
 var ships = new Array();
 
 _.series([
@@ -19,6 +21,8 @@ _.series([
             holvit.find({}, function (err, vaults) {
             	
 			    vaults.forEach(function(vault) {
+
+			    	total_system_money = total_system_money + vault.vault_bitcoin_amount;
 
 					var today = new Date();
 
@@ -54,6 +58,10 @@ _.series([
 
 			    users.forEach(function(db_user) {
 
+			    	if(db_user.balance !== undefined) {
+			    		total_system_money = total_system_money + db_user.balance;
+			    	}
+
 			    	for(var i in ships){
 				  
 				    	if(db_user._id.toString() === ships[i].to.toString()){
@@ -74,6 +82,7 @@ _.series([
 
 			    });
 
+			    console.log('total system balance: ' + total_system_money);
 			    console.log('Batch job end');
 			    process.exit(0);
 
