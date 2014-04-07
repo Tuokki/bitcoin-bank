@@ -61,7 +61,13 @@ _.series([
 				    		db_user.balance = db_user.balance + ships[i].money;
 				    		console.log('User: '+db_user.username+' got money ' + ships[i].money + 'mBTC');
 				    		console.log('New balance: ' + db_user.balance + 'mBTC');
-				    		db_user.save();
+				    		/*db_user.save(function(err){
+				    			if(err){
+				    				console.log('Error: ' + err);
+				    			}
+				    		});*/
+			    			kayttajat.update({username: db_user.username}, 
+			    				{$inc: {'balance' : ships[i].money}}, function() {});
 				    	}
 				    	
 			    	}
