@@ -115,7 +115,11 @@ exports.get_all_vaults = function(req, res) {
 			exposed_vault.description = vault.description;
 			exposed_vault.location = vault.location;
 			exposed_vault.robbery_count = vault.robbery_count;
-			exposed_vault.vault_bitcoin_amount = vault.vault_bitcoin_amount;
+			exposed_vault.vault_bitcoin_amount = Math.round(1000 * vault.vault_bitcoin_amount) / 1000;
+
+			if(vault.vault_bitcoin_amount === 0){
+				exposed_vault.robbed = true;
+			}
 
 			// days left
 			// TODO: piilota ryöstösivulta myös
