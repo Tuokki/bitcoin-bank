@@ -88,9 +88,16 @@ angular.module('mean.system').controller('CreateVaultController',
 					$location.path('/');
 				}).error(function(data, status) { // called asynchronously if an error occurs
 					// or server returns response with an error status.
+
+					if(status == 500){
+						$scope.error = 'Cipher function error, you may have to reload the whole page.';
+					}else{
+						$scope.error = data;
+					}
+
 					console.log('fail');
 					$scope.message = '';
-					$scope.error = data;
+					
 				});
 
 		 	console.log(user);
