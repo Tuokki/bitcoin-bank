@@ -43,8 +43,8 @@ exports.render = function(req, res) {
 
 exports.handlePayment = function(req, res) {
 
-	if(req.params.secret === 'secret' && req.param('value') !== undefined &&
-		req.query.confirmations >= 6) {
+	if(req.params.secret === 'secret' && req.param('value') !== undefined/* &&
+		req.query.confirmations >= 6*/) {
 
 		User.findOne({ username: req.params.username }, function(err, user) {
 			if (err) {
