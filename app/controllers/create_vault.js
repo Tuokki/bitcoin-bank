@@ -236,7 +236,9 @@ exports.guess = function (req, res) {
 								}else{
 									vault.robbery_count = vault.robbery_count + 1;
 									vault.save();
-									res.end('Correct char count: ' + correctCount + '/' + guessWord.length);
+									var length_print = guessWord.length - 2;
+									var correct_print = correctCount - 2;
+									res.end('Correct char count: ' + correct_print + '/' + length_print);
 								}
 
 							}else{
