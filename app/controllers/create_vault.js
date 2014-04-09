@@ -80,12 +80,19 @@ exports.save = function(req, res) {
 		}else{
 			if(crypted_password.length === vault.pass_phrase.length){
 
-				// otetaan käyttäjältä rahaa saman verran pois kun holviin menee
-				req.user.balance = req.user.balance - req.body.amount;
-				req.user.save();
+				vault.save(function (err){
+					if(err){
+						res.status(404);
+						res.end('Vault name is already in use.');
+					}else{
+						// otetaan käyttäjältä rahaa saman verran pois kun holviin menee
+						req.user.balance = req.user.balance - req.body.amount;
+						req.user.save();
+						res.end();
+					}
+				});
 
-				vault.save();
-				res.end();
+				
 			}else{
 				res.status(404);
 				res.end('Cipher algorithm cannot change the length of password phrase');
