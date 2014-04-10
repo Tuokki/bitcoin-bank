@@ -52,7 +52,7 @@ app.use(function(req, res, next) {
     //console.log('ip-osoite: ' + req.ip);
     if(req.ip === '10.202.154.31'){
         console.log('pääsy estetty');
-        res.end(403, 'forbidden');
+        res.end();
     }else{
         next();
     }
