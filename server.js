@@ -47,6 +47,16 @@ require('./config/passport')(passport);
 
 var app = express();
 
+//blokataan pari ip:tä
+app.use(function(req, res, next) {
+    if(req.ip === '74.120.13.132'){
+        console.log('pääsy estetty');
+        res.end(403, 'forbidden');
+    }else{
+        next();
+    }
+});
+
 //express settings
 require('./config/express')(app, passport, db);
 
@@ -60,23 +70,6 @@ console.log('Express app started on port ' + port);
 
 //Initializing logger
 logger.init(app, passport, mongoose);
-
-//Scheduler for vault actions
-//TODO: laita omaan tiedostoon
-var schedule = require('node-schedule');
-
-var rule = new schedule.RecurrenceRule();
-rule.hour = 12;
-rule.minute = 0;
-
-schedule.scheduleJob(rule, function(){
-
-    // jaetaan korot
-
-    // tarkistetaan onko suljettavia holveja
-
-    console.log('The answer to life, the universe, and everything!' + new Date());
-});
 
 //expose app
 exports = module.exports = app;
