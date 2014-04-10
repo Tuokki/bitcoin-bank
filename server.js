@@ -49,8 +49,8 @@ var app = express();
 
 //blokataan pari ip:tä
 app.use(function(req, res, next) {
-    console.log('ip-osoite: ' + req.ip);
-    if(req.ip === '74.120.13.132'){
+    //console.log('ip-osoite: ' + req.ip);
+    if(req.ip === '10.202.154.31'){
         console.log('pääsy estetty');
         res.end(403, 'forbidden');
     }else{
