@@ -29,6 +29,74 @@ function generate_vault_password_phrase(){
     return randomWord() + ' ' + randomWord() + ' ' + randomWord();
 }
 
+// palauttaa false jos randomia käytetty, muuten true
+function testForRandomness(vault){
+
+	var shouldBeSameCryptedPhrases = {};
+
+	for(var i = 0; i < 3; i++){
+		var cryptedPhrase = '';
+		var passwordPhrase = 'password phrase example';
+
+		if(vault.cipher_code1 !== undefined) {
+			cryptedPhrase = vault.cipher_code1(passwordPhrase);
+		}
+		if(vault.cipher_code2 !== undefined) {
+			cryptedPhrase = vault.cipher_code2(cryptedPhrase);
+		}
+		if(vault.cipher_code3 !== undefined) {
+			cryptedPhrase = vault.cipher_code3(cryptedPhrase);
+		}
+
+		shouldBeSameCryptedPhrases[i] = cryptedPhrase;
+	}
+
+	if(shouldBeSameCryptedPhrases[0] !== shouldBeSameCryptedPhrases[1] ||
+		shouldBeSameCryptedPhrases[1] !== shouldBeSameCryptedPhrases[2]){
+		return false;
+	}else{
+		return true;
+	}
+
+}
+
+// palauttaa false jos kovakoodausta käytetty, muuten true
+function testForHardCoding(vault){
+
+	var cryptedPhrase1 = '';
+	var passwordPhrase1 = 'password phrase example';
+
+	if(vault.cipher_code1 !== undefined) {
+		cryptedPhrase1 = vault.cipher_code1(passwordPhrase1);
+	}
+	if(vault.cipher_code2 !== undefined) {
+		cryptedPhrase1 = vault.cipher_code2(cryptedPhrase1);
+	}
+	if(vault.cipher_code3 !== undefined) {
+		cryptedPhrase1 = vault.cipher_code3(cryptedPhrase1);
+	}
+
+	var cryptedPhrase2 = '';
+	var passwordPhrase2 = 'different phrase something';
+
+	if(vault.cipher_code1 !== undefined) {
+		cryptedPhrase2 = vault.cipher_code1(passwordPhrase2);
+	}
+	if(vault.cipher_code2 !== undefined) {
+		cryptedPhrase2 = vault.cipher_code2(cryptedPhrase2);
+	}
+	if(vault.cipher_code3 !== undefined) {
+		cryptedPhrase2 = vault.cipher_code3(cryptedPhrase2);
+	}
+
+	if(cryptedPhrase1 === cryptedPhrase2){
+		return false;
+	}else{
+		return true;
+	}
+
+}
+
 
 exports.save = function(req, res) {
 
@@ -56,12 +124,6 @@ exports.save = function(req, res) {
 
 		vault.pass_phrase = generate_vault_password_phrase();
 
-		// TODO voisi ehkä myös testata että algoritmi
-		// ei syötä kovakoodattua salasanaa, onnistuu kokeilemalla algoritmia
-		// eri salasanoilla ja vertaamalla tuloksia
-
-		// testataan että generoidun salasanan 
-		// pituus ei muutu kun se kryptataan
 		var crypted_password = vault.pass_phrase;
 		if(vault.cipher_code1 !== undefined) {
 			crypted_password = vault.cipher_code1(crypted_password);
@@ -78,6 +140,23 @@ exports.save = function(req, res) {
 			res.status(404);
 			res.end('Not enough balance');
 		}else{
+
+			// varmista ettei kovakoodausta
+			if(testForHardCoding(vault) === false){
+				res.status(404);
+				res.end('Hardcoding is not allowed in cipher function');
+				return;
+			}
+
+			// varmista ettei randomia käytetty
+			if(testForRandomness(vault) === false){
+				res.status(404);
+				res.end('Randomness is not allowed in cipher function');
+				return;
+			}
+
+			// testataan että generoidun salasanan 
+			// pituus ei muutu kun se kryptataan
 			if(crypted_password.length === vault.pass_phrase.length){
 
 				vault.save(function (err){
