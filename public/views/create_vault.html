@@ -50,7 +50,6 @@
 
 .label_style {
 	display: inline-block; 
-	
 	text-align: left;
 }
 
@@ -110,11 +109,21 @@
 				    </small>
 			  	</div>
 
-				<input required type="text" name="end_date" datepicker-popup="dd.MM.yyyy" ng-model="end_date" is-open="opened" close-text="Close" style="width:100px;" placeholder="End date"  class="form-control input_style" min="{{minDate}}" /> 
-				<label class="label_style">
-					Vault will be {{ dateDifference() }} days active
-				</label>
-				<br/>
+		  	    <div class="row" style="padding-top:5px;">
+			        <div class="col-md-4">
+			            <p class="input-group">
+			              <input required type="text" name="end_date" datepicker-popup="dd.MM.yyyy" ng-model="end_date" is-open="opened" close-text="Close" placeholder="End date"  class="form-control" min="{{minDate}}" disabled />
+			              <span class="input-group-btn">
+			                <button class="btn btn-default" ng-click="open($event)">
+			                	<i class="glyphicon glyphicon-calendar"></i>
+			                </button>
+			              </span>
+			            </p>
+			        </div>
+			        <label class="label_style">
+						Vault will be {{ dateDifference() }} days active
+					</label>
+			    </div>
 
 				<div class="error" ng-show="vault_form.end_date.$dirty && vault_form.end_date.$invalid">
 				    <small class="error" ng-show="vault_form.end_date.$error.required">
