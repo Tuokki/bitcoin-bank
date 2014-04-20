@@ -6,11 +6,32 @@
    
     <div class="panel panel-default">
         <div class="panel-body">
-            <p>This is the first site that offers interest for your Bitcoin deposits. Interest is earned from unsuccessfull burglary attempts to your Bitcoin Vault. You can design your own vault security, and so reduce the possibility of burglary.
-            <span ng-hide="global.authenticated"><br/><br/>You need to log in before you can rob or create vaults. This site is in experimental use.</span>
+            <p>This is the first site that offers interest for your Bitcoin deposits. You will earn interest from unsuccessfull burglary attempts to your Bitcoin Vault. You can design your own vault security, and so reduce the possibility of burglary.<br/><br/>
+            On this site, stealing bitcoins is now made legal: here you can try to rob other users' bitcoins by guessing their vault password phrases by using the ciphered versions of them. Knowledge of cipher algorithms will help you, but you may also benefit from luck as after each guess, the system will tell you how many correct charecters you entered.
+
+            <span ng-hide="!fullStory"><br/><br/>
+            <b>More details</b><br/>
+            <u>Vault creation:</u><br/>
+            The system generates a three-word password phrase by using English words, after which the vault owner creates a cipher algorithm which scrambles the words (using javascript); the number of the characters per word will not change. The system does not allow the use of hardcoded texts and random functions.
+            <br/><br/>
+            <u>Robbing vaults:</u><br/>
+            Any logged user with a bitcoin balance can try to rob the vaults by guessing the original password phrase the system has generated. If the guess is correct the full balance of the vault will be transfered to the robber's account and can be withdrawn immediately.
+            <br/><br/>
+            <u>Expiration of the vault:</u><br/>
+            When the vault remains intact, the vault owner can withdraw the full bitcoin balance of the vault (possible interests will be included) after the expiration of the vault (batch job is run every hour).
+            </span>
+            <span ng-hide="global.authenticated"><br/><br/>You need to log in before you can rob or create vaults.</span>
+            <span ng-hide="!showDetails"><br/><br/>
+              <b>Prices</b>
+              <ul ng-hide="!showDetails">
+                <li>Robbing attempt cost is 0.1 mBTC</li>
+                <li>Fee of 10% is taken from robbing attempts, rest 90% goes inside the vault as interst</li>  
+              </ul>
+            </span>
             </p>
             <p>
-                <!--<a href="#" class="btn btn-primary btn-large" style="margin-bottom:3px;">Learn more »</a>-->
+                <a href="#" ng-click="showDetails = ! showDetails" class="btn btn-primary btn-large" style="margin-bottom:3px;">Show prices »</a>
+                <a href="#" ng-click="fullStory = ! fullStory" class="btn btn-primary btn-large" style="margin-bottom:3px;">Show more details »</a>
                 <a href="#!/create_vault" class="btn btn-success btn-large ng-hide" ng-hide="!global.authenticated" style="margin-bottom:3px;">Create new vault »</a>
             </p>
         </div>
