@@ -118,3 +118,4 @@ angular.module('mean.system').controller('CreateVaultController',
 		/* jshint ignore:end */
 	};
 }]);
+

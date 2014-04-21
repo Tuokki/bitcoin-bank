@@ -106,6 +106,7 @@ function saveSource(){
             ciphers[i].source = _.clone(newSource.toString(), true);
            
             // TODO tallenna muutettu kantaan asti
+            alert('Source saved in session (not in database).');
            
             return;
         }
