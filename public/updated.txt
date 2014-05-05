@@ -1,0 +1,5 @@
+5.5.2014 7:30 CET:
+- Added check if the vault is robbed when robbing (redirects to the main page)
+- Added robbed vault removal every hour (batch job)
+
+Do you have an idea? Give feedback to admin@bitcoinstash.net

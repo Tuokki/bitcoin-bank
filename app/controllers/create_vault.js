@@ -284,50 +284,59 @@ exports.guess = function (req, res) {
 					res.end(err);
 				}else{
 					if(vault !== null) {
-						// Lisätään holviin 90% arvausmaksusta
-						vault.vault_bitcoin_amount = vault.vault_bitcoin_amount + 0.09;
-						vault.save();
 
-						var threeRandomWords = vault.pass_phrase;
-						var guessWord = req.params.guess;
+						if(vault.vault_bitcoin_amount === 0){
+							// rahojen palautus
+							req.user.balance = req.user.balance + 0.1;
+							req.user.save();
+							res.end('This vault is already cracked');
+						}else{
 
-						if(guessWord !== null && threeRandomWords !== null) {
-							if(threeRandomWords.length === guessWord.length) {
-								var correctCount = 0;
+							// Lisätään holviin 90% arvausmaksusta
+							vault.vault_bitcoin_amount = vault.vault_bitcoin_amount + 0.09;
+							vault.save();
 
-								for(var i = 0; i < guessWord.length; i++){
+							var threeRandomWords = vault.pass_phrase;
+							var guessWord = req.params.guess;
 
-									if(guessWord.charAt(i) === threeRandomWords.charAt(i)) {
-										correctCount++;
+							if(guessWord !== null && threeRandomWords !== null) {
+								if(threeRandomWords.length === guessWord.length) {
+									var correctCount = 0;
+
+									for(var i = 0; i < guessWord.length; i++){
+
+										if(guessWord.charAt(i) === threeRandomWords.charAt(i)) {
+											correctCount++;
+										}
+
 									}
 
-								}
+									if(correctCount === guessWord.length){
+										//ryöstäjä saa saaliinsa
+										req.user.balance = req.user.balance + vault.vault_bitcoin_amount;
+										req.user.save();
 
-								if(correctCount === guessWord.length){
-									//ryöstäjä saa saaliinsa
-									req.user.balance = req.user.balance + vault.vault_bitcoin_amount;
-									req.user.save();
+										vault.vault_bitcoin_amount = 0;
+										vault.robbery_count = vault.robbery_count + 1;
+										vault.save();
 
-									vault.vault_bitcoin_amount = 0;
-									vault.robbery_count = vault.robbery_count + 1;
-									vault.save();
+										res.end('Vault cracked! Redirecting to main page...');
+									}else{
+										vault.robbery_count = vault.robbery_count + 1;
+										vault.save();
+										var length_print = guessWord.length - 2;
+										var correct_print = correctCount - 2;
+										res.end('Correct char count: ' + correct_print + '/' + length_print);
+									}
 
-									res.end('Vault cracked! Redirecting to main page...');
 								}else{
-									vault.robbery_count = vault.robbery_count + 1;
-									vault.save();
-									var length_print = guessWord.length - 2;
-									var correct_print = correctCount - 2;
-									res.end('Correct char count: ' + correct_print + '/' + length_print);
+									res.end('Guess length ' + guessWord.length + ' does not match password length: '+
+									threeRandomWords.length);
 								}
-
 							}else{
-								res.end('Guess length ' + guessWord.length + ' does not match password length: '+
-								threeRandomWords.length);
+								res.end('Error');
 							}
-						}else{
-							res.end('Error');
-						}
+						}	
 					}else{
 						res.end('Cannot find vault');
 					}
