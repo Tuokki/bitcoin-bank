@@ -29,7 +29,9 @@ _.series([
 					// jos ei ryöstetty ja rahaa holvissa ja aika umpeutunut
 					// siirrä rahat omistajalle ja poista holvi
 
-					if(today.getTime() > vault.end_date.getTime()){
+					if(today.getTime() > vault.end_date.getTime() || vault.vault_bitcoin_amount === 0){
+
+						if(vault.vault_bitcoin_amount !== 0){
 						console.log('Käsitellään holvi: ' + vault.title + ', jossa rahaa: ' +
 							vault.vault_bitcoin_amount + 'mBTC');
 
@@ -38,11 +40,16 @@ _.series([
 							ship.money = vault.vault_bitcoin_amount;
 
 							ships.push(ship);
+						}else{
+							console.log('Ryöstetyn holvin poisto: ' + vault.title);
+						}
 
-							console.log('poistetaan holvi');
+							console.log('Poistetaan holvi: ' + vault.title);
 							vault.remove();
 							
 					}
+
+					
 
 			    });
 

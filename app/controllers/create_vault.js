@@ -309,6 +309,7 @@ exports.guess = function (req, res) {
 									req.user.save();
 
 									vault.vault_bitcoin_amount = 0;
+									vault.robbery_count = vault.robbery_count + 1;
 									vault.save();
 
 									res.end('Vault cracked! Redirecting to main page...');
